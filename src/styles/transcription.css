@@ -6,9 +6,9 @@
     background: #f9fafb;
     padding: 2rem;
     font-family: 'Inter', sans-serif;
-  }
-  
-  .transcription-container {
+}
+
+.transcription-container {
     background: white;
     padding: 2rem 3rem;
     border-radius: 1.5rem;
@@ -16,21 +16,21 @@
     max-width: 800px;
     width: 100%;
     text-align: center;
-  }
-  
-  .transcription-title {
+}
+
+.transcription-title {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 2rem;
-  }
-  
-  .loader {
+}
+
+.loader {
     font-size: 1rem;
     color: #6366f1;
     margin: 2rem 0;
-  }
-  
-  .transcription-result {
+}
+
+.transcription-result {
     text-align: left;
     background: #f3f4f6;
     padding: 1rem;
@@ -38,9 +38,9 @@
     margin: 2rem 0;
     font-size: 1rem;
     color: #374151;
-  }
-  
-  .download-btn {
+}
+
+.download-btn {
     background-color: #6366f1;
     color: white;
     font-weight: 500;
@@ -49,9 +49,133 @@
     border-radius: 9999px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .download-btn:hover {
+}
+
+.download-btn:hover {
     background-color: #4f46e5;
-  }
-  
+}
+
+.ip {
+    width: 16em;
+    height: 8em;
+}
+
+.ip__track {
+    stroke: hsl(var(--hue), 90%, 90%);
+    transition: stroke var(--trans-dur);
+}
+
+.ip__worm1,
+.ip__worm2 {
+    animation: worm1 2s linear infinite;
+}
+
+.ip__worm2 {
+    animation-name: worm2;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: hsl(var(--hue), 90%, 5%);
+        --fg: hsl(var(--hue), 90%, 95%);
+    }
+
+    .ip__track {
+        stroke: hsl(var(--hue), 90%, 15%);
+    }
+}
+
+/* Animation */
+@keyframes worm1 {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        animation-timing-function: steps(1);
+        stroke-dashoffset: -358;
+    }
+
+    50.01% {
+        animation-timing-function: linear;
+        stroke-dashoffset: 358;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes worm2 {
+    from {
+        stroke-dashoffset: 358;
+    }
+
+    50% {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -358;
+    }
+}
+
+.ytp-cued-thumbnail-overlay-image {
+    width: 5;
+}
+
+.ytp-cued-thumbnail-overlay {
+    /* width: 501px; */
+}
+
+button.ytp-large-play-button.ytp-button.ytp-large-play-button-red-bg {
+    display: none;
+}
+
+.ytp-chrome-top.ytp-show-cards-title {
+    display: none;
+}
+
+.plyr__poster {
+    width: 500px;
+}
+
+.plyr__video-wrapper.plyr__video-embed {
+    width: 598px;
+    border-radius: 43px;
+}
+
+.plyr.plyr--full-ui.plyr--video.plyr--youtube.plyr--fullscreen-enabled.plyr__poster-enabled.plyr--paused {
+    border-radius: 32px;
+}
+
+p.text-2xl.font-semibold.text-gray-900.leading-relaxed {
+    font-size: 36px;
+}
+
+p.text-base.text-gray-500.mt-1.pb-12 {
+    margin-bottom: 30px;
+    font-style: italic;
+    font-size: larger;
+}
+
+p.text-lg.font-medium.text-gray-800.leading-relaxed {
+    font-size: 23px;
+    margin-bottom: 114px;
+}
+
+.text-sm.font-mono.text-gray-400 {
+    font-size: 20px;
+    color: purple;
+}
+
+iframe.w-full.h-full {
+    width: 700px;
+    height: 300px;
+}
+
+.spinner-loading {
+    margin-top: 25px;
+    justify-self: center;
+}

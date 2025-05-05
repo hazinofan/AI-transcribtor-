@@ -1,21 +1,35 @@
+import { appWithTranslation } from 'next-i18next'
 import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 import '../styles/home.css'
 import '../styles/transcription.css'
-// Load the font with any options you need
-const inter = Inter({ 
+import Head from 'next/head'
+import "plyr-react/plyr.css";
+import { AppProps } from 'next/app'
+import Layout from '@/components/Layout'
+
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter', // optional: create CSS variable
-  display: 'swap', // optional: ensures text remains visible during webfont load
+  variable: '--font-inter',
+  display: 'swap',
 })
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    // Apply the font to the root element
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
+    <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+        />
+      </Head>
+      <main className={inter.className}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </main>
+    </>
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)

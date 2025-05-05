@@ -1,56 +1,74 @@
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
 import { useState } from 'react'
-import Layout from '@/components/Layout' // 👈 import your layout
+import Layout from '@/components/Layout'
+import { useTranslation } from 'next-i18next'
 
 export default function Home() {
+  const { t } = useTranslation('common')
   const [videoUrl, setVideoUrl] = useState('')
   const [language, setLanguage] = useState('fr')
 
   const handleSubmit = async () => {
-    if (!videoUrl) return alert('Please paste a YouTube URL')
+    if (!videoUrl) return alert(t('alert_paste_url'))
     const videoId = new URLSearchParams(new URL(videoUrl).search).get('v')
-    if (!videoId) return alert('Invalid YouTube link')
+    if (!videoId) return alert(t('alert_invalid_link'))
 
-    window.location.href = `/transcription/${videoId}`
+    window.location.href = `/transcription/${videoId}?lang=${language}`
   }
 
   return (
     <>
       <Head>
-        <title>AI YouTube Transcriber</title>
+        <title>{t('ai_transcriber')}</title>
       </Head>
 
-      <Layout>
-        {/* Main Content inside Layout now */}
-        <div className="ai-container">
-          <div className="">
-            <span> AI Transcriber </span>
+        <div className="ai-container h-screen">
+          <div className="rgb-border">
+            <span>{t('ai_transcriber')}</span>
           </div>
           <div className="ai-title">
-            <p> Instant YouTube Video Transcriptions <br /> and Translations </p>
-            <h4> ENTER A YOUTUBE VIDEO TO GENERATE THE TRANSCRIPTION</h4>
+            <p>
+              {t('instant_transcriptions')} <br /> {t('and_translations')}
+            </p>
+            <h4>{t('enter_video')}</h4>
           </div>
+
           <div className="search-bar">
             <input
               type="text"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
               className="search-input"
-              placeholder="Paste a YouTube link..."
+              placeholder={t('paste_link')}
             />
 
-            <div className="search-actions">
-              <button onClick={handleSubmit} className="option-btn primary">
-                🎙️ Transcribe
-              </button>
+            <div className="display-bar">
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="search-input mt-4"
+              >
+                <option value="fr">🇫🇷 {t('french')}</option>
+                <option value="en">🇬🇧 {t('english')}</option>
+                <option value="de">🇩🇪 {t('german')}</option>
+              </select>
 
-              <button className="icon-btn dark">
-                ⬆️
-              </button>
+              <div className="search-actions">
+                <button onClick={handleSubmit} className="option-btn primary">
+                  🎙️ {t('transcribe')}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </Layout>
     </>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+  },
+})
