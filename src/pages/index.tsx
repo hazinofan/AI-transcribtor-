@@ -1,74 +1,73 @@
-import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Head from 'next/head'
-import { useState } from 'react'
-import Layout from '@/components/Layout'
+// pages/index.tsx
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import React, { useState } from 'react'
 
-export default function Home() {
+const Index = () => {
   const { t } = useTranslation('common')
   const [videoUrl, setVideoUrl] = useState('')
   const [language, setLanguage] = useState('fr')
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!videoUrl) return alert(t('alert_paste_url'))
-    const videoId = new URLSearchParams(new URL(videoUrl).search).get('v')
+    let videoId: string | null = null
+
+    try {
+      const urlObj = new URL(videoUrl)
+      videoId = new URLSearchParams(urlObj.search).get('v')
+    } catch {
+      return alert(t('alert_invalid_link'))
+    }
+
     if (!videoId) return alert(t('alert_invalid_link'))
 
     window.location.href = `/transcription/${videoId}?lang=${language}`
   }
 
   return (
-    <>
-      <Head>
-        <title>{t('ai_transcriber')}</title>
-      </Head>
+    <div className="hero_section">
+      <img src="/assets/red-star.svg" alt="" className="star star--left" />
+      <div className="hero_text">
+        <h1 className="title">{t('title')} <br /> {t('title2')} </h1>
+        <p className="sub-title">{t('subtitle1')} <br /> {t('subtitle2')} <br /> {t('subtitle3')} </p>
+      </div>
+      <img src="/assets/green-star.svg" alt="" className="star star--right" />
+      <img
+        src="/assets/writing-hand-with-shadow.svg"
+        alt=""
+        className="star star--center"
+      />
 
-        <div className="ai-container h-screen">
-          <div className="rgb-border">
-            <span>{t('ai_transcriber')}</span>
-          </div>
-          <div className="ai-title">
-            <p>
-              {t('instant_transcriptions')} <br /> {t('and_translations')}
-            </p>
-            <h4>{t('enter_video')}</h4>
-          </div>
+      <div className="input_container">
+        <input
+          type="text"
+          value={videoUrl}
+          onChange={(e) => setVideoUrl(e.target.value)}
+          placeholder={t('placeholder_url')}
+          className="styled-input"
+        />
 
-          <div className="search-bar">
-            <input
-              type="text"
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
-              className="search-input"
-              placeholder={t('paste_link')}
-            />
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          className="styled-input"
+        >
+          <option value="fr">{t('lang_fr')}</option>
+          <option value="en">{t('lang_en')}</option>
+        </select>
 
-            <div className="display-bar">
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="search-input mt-4"
-              >
-                <option value="fr">🇫🇷 {t('french')}</option>
-                <option value="en">🇬🇧 {t('english')}</option>
-                <option value="de">🇩🇪 {t('german')}</option>
-              </select>
-
-              <div className="search-actions">
-                <button onClick={handleSubmit} className="option-btn primary">
-                  🎙️ {t('transcribe')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+        <button className="styled-button" onClick={handleSubmit}>
+          {t('button_go')}
+        </button>
+      </div>
+    </div>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    ...(await serverSideTranslations(locale, ['common'])),
   },
 })
+
+export default Index

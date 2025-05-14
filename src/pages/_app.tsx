@@ -16,7 +16,7 @@ const inter = Inter({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div className="wrapper">
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </Layout>
       </main>
-    </>
+    </div>
   )
 }
 

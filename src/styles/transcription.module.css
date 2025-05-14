@@ -1,0 +1,200 @@
+/* transcription.module.css */
+
+/* Base Styles */
+.container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Video Player */
+.videoContainer {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16/9;
+    margin: 0 auto 30px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.videoPlayer {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Messages */
+.loadingMessage, .emptyMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin: 20px 0;
+}
+
+.errorMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    margin: 20px 0;
+}
+
+/* Segment Container */
+.segmentContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.segmentNavigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #00632e;
+    color: white;
+}
+
+.navButton {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.navButton:hover:not(.disabledButton) {
+    background-color: #1aa073;
+    transform: translateY(-1px);
+}
+
+.disabledButton {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.segmentCounter {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Segment Content */
+.segmentContent {
+    display: flex;
+    min-height: 300px;
+}
+
+.translationSide, .arabicSide {
+    flex: 1;
+    padding: 25px;
+}
+
+.translationSide {
+    border-right: 1px solid #eee;
+    background-color: #fefefe;
+}
+
+.arabicSide {
+    background-color: #f9f9f9;
+}
+
+.timeStamp {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+.translationText {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+.arabicText {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: #34495e;
+    font-weight: 600;
+}
+
+/* Vocabulary Box */
+.vocabularyBox {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #f1f8fe;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.vocabularyTitle {
+    font-size: 1rem;
+    color: #3498db;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.vocabularyList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vocabularyItem {
+    padding: 8px 0;
+    border-bottom: 1px dashed #d6eaf8;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vocabularyItem:last-child {
+    border-bottom: none;
+}
+
+.vocabularyArabic {
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: right;
+    direction: rtl;
+}
+
+.vocabularyTranslation {
+    color: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .segmentContent {
+        flex-direction: column;
+    }
+    
+    .translationSide {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .videoContainer {
+        border-radius: 8px;
+    }
+    
+    .arabicText {
+        font-size: 1.3rem;
+    }
+}

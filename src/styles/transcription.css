@@ -179,3 +179,72 @@ iframe.w-full.h-full {
     margin-top: 25px;
     justify-self: center;
 }
+
+.transcription__content {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  /* Each segment row */
+  .segment {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem; /* 24px 16px */
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color .15s;
+  }
+  .segment:hover {
+    background-color: #f9fafb;
+  }
+  
+  /* On tablet+/desktop: two columns */
+  @media (min-width: 768px) {
+    .segment {
+      flex-direction: row;
+    }
+    .segment__col {
+      width: 50%;
+    }
+  }
+  
+  /* Translation column gets a right divider on desktop */
+  @media (min-width: 768px) {
+    .segment__col--translation {
+      padding-right: 1.5rem; /* 24px */
+      border-right: 1px solid #e5e7eb;
+    }
+    .segment__col--arabic {
+      padding-left: 1.5rem;
+    }
+  }
+  
+  /* Column common styles */
+  .segment__col {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Timestamp */
+  .segment__time {
+    font-family: monospace;
+    color: purple;
+    font-size: .875rem; /* 14px */
+    margin-bottom: .5rem; /* 8px */
+  }
+  
+  /* Text content */
+  .segment__text {
+    font-size: 1rem;  /* 16px */
+    line-height: 1.5;
+    white-space: pre-wrap; /* preserve wrapping and paragraph breaks */
+    margin: 0;
+  }
+  
+  /* Arabic gets a slightly larger font */
+  .segment__col--arabic .segment__text {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+  }
+  

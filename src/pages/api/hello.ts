@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/learn-arabic-ee19c/us-central1"
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001/ai-transcriptor-656ee/us-central1"
 
 export async function transcribeVideo(videoId: string, language: string) {
   const response = await fetch(`${BASE_URL}/processVideo`, {
