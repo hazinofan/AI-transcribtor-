@@ -7,7 +7,7 @@ import styles from '../../styles/transcription.module.css' // We'll create this 
 
 const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    'http://localhost:5001/learn-arabic-ee19c/us-central1'
+    'http://localhost:5001/ai-transcriptor-app/us-central1'
 
 async function transcribeVideo(videoId: string, language: string) {
     const res = await fetch(`${BASE_URL}/processVideo`, {
@@ -85,8 +85,8 @@ export default function TranscriptionPage() {
                     className={styles.videoPlayer}
                     src={`https://www.youtube.com/embed/${videoId}` +
                         `?autoplay=1` +           // start playing right away
-                        `&controls=0` +           // hide controls bar
-                        `&loop=1` +               // loop the video
+                        `&controls=1` +           // hide controls bar
+                        `&loop=0` +               // loop the video
                         `&playlist=${videoId}` +  // needed to make loop work
                         `&modestbranding=1` +     // no big YouTube logo
                         `&rel=0` +                // don’t show related videos
