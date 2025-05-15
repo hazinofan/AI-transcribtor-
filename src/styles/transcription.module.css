@@ -20,18 +20,26 @@
 /* Video Player */
 .videoContainer {
     width: 100%;
-    max-width: 800px;
+    max-width: 800px; /* Or your desired max-width */
     aspect-ratio: 16/9;
     margin: 0 auto 30px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: #000; /* Optional: placeholder bg for the container */
 }
 
+/* This styles the div container created by react-youtube */
 .videoPlayer {
     width: 100%;
     height: 100%;
-    border: none;
+}
+
+/* This styles the actual iframe element inside react-youtube's div */
+.videoPlayerIframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Important to remove default iframe border */
 }
 
 /* Messages */
