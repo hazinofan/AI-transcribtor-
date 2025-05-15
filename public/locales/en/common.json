@@ -21,5 +21,6 @@
   "previous":         "Previous",
   "next":             "Next",
   "segment_counter":  "Segment {{current}} of {{total}}",
-  "key_vocabulary":   "Key Vocabulary"
+  "key_vocabulary":   "Key Vocabulary",
+  "keyboard_controls_hint": "Use ← → to navigate segments, Space to play/pause."
 }

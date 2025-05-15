@@ -182,11 +182,19 @@
     color: #2c3e50;
     text-align: right;
     direction: rtl;
-    font-size: 1.7rem;
+    font-size: 2rem;
 }
 
 .vocabularyTranslation {
-    color: #7f8c8d;
+    color: #434e4f;
+}
+
+.keyboardHint {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px; /* Added some bottom margin */
+    font-size: 0.9rem;
+    color: #555;
 }
 
 /* Responsive Design */

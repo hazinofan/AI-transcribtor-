@@ -231,6 +231,10 @@ p.sub-title {
     outline: none;
 }
 
+select.styled-input {
+    flex-grow: 0; /* Prevent the select from growing to fill extra space */
+}
+
 /* button matches input’s shadow + border */
 .styled-button {
     height: 3.5rem;

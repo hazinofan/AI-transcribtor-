@@ -2,7 +2,7 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube'; // Import react-youtube
 import styles from '../../styles/transcription.module.css';
 
@@ -94,31 +94,31 @@ export default function TranscriptionPage() {
     };
 
     // Seek video to segment start time
-    const seekToSegment = (segmentIndex: number) => {
+    const seekToSegment = useCallback((segmentIndex: number) => {
         if (player && segments[segmentIndex] && player.seekTo) {
             player.seekTo(timeToSeconds(segments[segmentIndex].startTime), true);
-            if (player.getPlayerState() !== 1) { // If not playing, play
+            if (player.getPlayerState && player.getPlayerState() !== 1) { // If not playing, play
                 player.playVideo?.();
             }
         }
-    };
+    }, [player, segments]);
 
     // Segment Navigation Handlers
-    const handleNextSegment = () => {
+    const handleNextSegment = useCallback(() => {
         if (currentSegment < segments.length - 1) {
             const newSegmentIndex = currentSegment + 1;
             setCurrentSegment(newSegmentIndex);
             seekToSegment(newSegmentIndex);
         }
-    };
+    }, [currentSegment, segments.length, setCurrentSegment, seekToSegment]);
 
-    const handlePrevSegment = () => {
+    const handlePrevSegment = useCallback(() => {
         if (currentSegment > 0) {
             const newSegmentIndex = currentSegment - 1;
             setCurrentSegment(newSegmentIndex);
             seekToSegment(newSegmentIndex);
         }
-    };
+    }, [currentSegment, setCurrentSegment, seekToSegment]);
 
     // Effect for synchronizing segment with player time
     useEffect(() => {
@@ -172,6 +172,44 @@ export default function TranscriptionPage() {
             }
         };
     }, [player, segments, currentSegment]); // currentSegment is included to re-evaluate if it changes externally
+
+    // Effect for keyboard controls
+    const handleKeyDown = useCallback((event: KeyboardEvent) => {
+        const target = event.target as HTMLElement;
+        // Ignore if focus is on an input, select, textarea, or contentEditable element
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+            return;
+        }
+
+        switch (event.key) {
+            case 'ArrowLeft':
+                event.preventDefault();
+                handlePrevSegment();
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                handleNextSegment();
+                break;
+            case ' ': // Space bar
+                event.preventDefault();
+                if (player && typeof player.getPlayerState === 'function' && typeof player.playVideo === 'function' && typeof player.pauseVideo === 'function') {
+                    const playerState = player.getPlayerState();
+                    if (playerState === 1) { // Playing
+                        player.pauseVideo();
+                    } else { // Paused, Ended, Cued, Buffering, Unstarted
+                        player.playVideo();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }, [handlePrevSegment, handleNextSegment, player]);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [handleKeyDown]);
 
     const playerOpts: YouTubeProps['opts'] = {
         playerVars: {
@@ -311,6 +349,10 @@ export default function TranscriptionPage() {
                         </div>
                     </div>
                 </div>
+            )}
+            {/* Keyboard Controls Hint */}
+            {!loading && segments.length > 0 && (
+                <div className={styles.keyboardHint}>{t('keyboard_controls_hint')}</div>
             )}
         </div>
     );
