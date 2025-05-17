@@ -248,3 +248,144 @@ iframe.w-full.h-full {
     font-weight: 600;
   }
   
+  .loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* transcription.module.css */
+
+.progressContainer {
+  width: 100%;            /* fill its parent */
+  height: 8px;            /* give it some height */
+  background-color: #eee; /* light grey “track” */
+  border-radius: 4px;     /* rounded ends */
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progressBar {
+  height: 100%;               /* match the container’s height */
+  width: 0;                   /* starts at 0% */
+  background-color: #4f46e5;  /* pick your accent color */
+  transition: width 0.3s ease;/* smooth growth */
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+}
+
+.progress::-webkit-progress-bar { background: #eee; border-radius: 4px; }
+.progress::-webkit-progress-value { background: #4f46e5; border-radius: 4px; }
+.progress::-moz-progress-bar    { background: #4f46e5; border-radius: 4px; }
+
+
+.loadingContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+}
+
+.loadingContent {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+}
+
+.loadingText {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #2d3748;
+}
+
+.estimatedTime {
+    font-size: 15px;
+    color: #718096;
+    margin-bottom: 24px;
+}
+
+/* Progress Bar Container */
+.progressWrapper {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Custom Progress Track (visible behind the native element) */
+.progressTrack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #edf2f7;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* Enhanced Progress Bar Styling */
+.progressBar {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border-radius: 10px;
+    z-index: 2;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+}
+
+/* WebKit/Blink Progress Bar */
+.progressBar::-webkit-progress-bar {
+    background: transparent;
+}
+
+.progressBar::-webkit-progress-value {
+    background: linear-gradient(90deg, #4299e1, #3182ce);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(66, 153, 225, 0.3);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Firefox Progress Bar */
+.progressBar::-moz-progress-bar {
+    background: linear-gradient(90deg, #4299e1, #3182ce);
+    border-radius: 10px;
+}
+
+.timeLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #a0aec0;
+    font-weight: 500;
+}
+
+progress{
+    width: 100%;
+    height: 30px;
+}
+
+.loadingContainer { /* centering, padding… */ }
+.loadingText { font-size: 1.1rem; }
+.progressWrapper { position: relative; width: 100%; margin-top: .5rem; }
+.progressBar { width: 100%; height: 6px; appearance: none; }

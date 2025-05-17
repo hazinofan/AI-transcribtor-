@@ -8,7 +8,24 @@ import styles from '../../styles/transcription.module.css';
 
 const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    'http://localhost:5001/ai-transcriptor-app/us-central1'; // Corrected BASE_URL
+    'http://localhost:5001/ai-transcriptor-app-48cea/us-central1'; // Corrected BASE_URL
+
+async function estimateTime(videoId: string) {
+    const res = await fetch(`${BASE_URL}/estimateTranscriptionTime`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            data: {
+                videoId,
+                url: `https://www.youtube.com/watch?v=${videoId}`
+            }
+        })
+    });
+    if (!res.ok) throw new Error(`Estimate API returned ${res.status}`);
+    const { result } = await res.json();
+    return result.estimatedTimeSec as number;
+}
+
 
 async function transcribeVideo(videoId: string, language: string) {
     const res = await fetch(`${BASE_URL}/processVideo`, {
@@ -51,7 +68,9 @@ export default function TranscriptionPage() {
     const { query, isReady } = useRouter();
     const videoId = isReady && typeof query.videoId === 'string' ? query.videoId : null;
     const lang = isReady && typeof query.lang === 'string' ? query.lang : 'fr';
-
+    const [estimatedTime, setEstimatedTime] = useState<number | null>(null);
+    // how many seconds have elapsed since we started
+    const [elapsed, setElapsed] = useState(0);
     const [segments, setSegments] = useState<Segment[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -62,30 +81,50 @@ export default function TranscriptionPage() {
     // Fetch transcription data
     useEffect(() => {
         if (!videoId) {
-             // Clear state if videoId is not present (e.g., navigating away or initial load)
-            setSegments([]);
-            setCurrentSegment(0);
-            setPlayer(null); // Important to reset player for new video
             setLoading(false);
-            setError(null);
             return;
         }
+        let timerId: ReturnType<typeof setInterval>;
 
-        setLoading(true);
-        setError(null);
-        setSegments([]); // Clear previous segments
-        setCurrentSegment(0); // Reset to first segment
+        async function go() {
+            setLoading(true);
+            setError(null);
+            setSegments([]);
+            setElapsed(0);
+            setEstimatedTime(null);
 
-        transcribeVideo(videoId, lang)
-            .then(data => {
+            try {
+                // 1) get estimate
+                const e = await estimateTime(videoId);
+                setEstimatedTime(e);
+
+                // start a 1-sec tick to update your progress
+                timerId = setInterval(() => {
+                    setElapsed(old => {
+                        if (old + 1 >= e) {
+                            clearInterval(timerId);
+                            return e;
+                        }
+                        return old + 1;
+                    });
+                }, 1000);
+
+                // 2) now fire the real transcription
+                const data = await transcribeVideo(videoId, lang);
                 setSegments(data.result.output || []);
-            })
-            .catch(err => {
-                console.error("Transcription fetch error:", err);
+            } catch (err: any) {
+                console.error(err);
                 setError(err.message || t('error_fetch'));
-            })
-            .finally(() => setLoading(false));
+            } finally {
+                clearInterval(timerId);
+                setLoading(false);
+            }
+        }
+
+        go();
+        return () => clearInterval(timerId);
     }, [videoId, lang, t]);
+
 
 
     // YouTube Player Ready Handler
@@ -131,7 +170,7 @@ export default function TranscriptionPage() {
                 animationFrameIdRef.current = requestAnimationFrame(checkPlayerTime);
                 return;
             }
-            
+
             const currentTime = player.getCurrentTime();
             const playerState = player.getPlayerState();
 
@@ -232,7 +271,7 @@ export default function TranscriptionPage() {
         );
     }
     if (!videoId && isReady) { // Explicitly no videoId after router is ready
-         return (
+        return (
             <div className={styles.loadingContainer}>
                 <p>No video ID provided.</p>
             </div>
@@ -256,37 +295,38 @@ export default function TranscriptionPage() {
 
             {/* Status / Messages */}
             {loading && (
-                <main className='spinner-loading'>
-                    {/* SVG Loader remains the same */}
-                    <svg className="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stopColor="#5ebd3e" />
-                                <stop offset="33%" stopColor="#ffb900" />
-                                <stop offset="67%" stopColor="#f78200" />
-                                <stop offset="100%" stopColor="#e23838" />
-                            </linearGradient>
-                            <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
-                                <stop offset="0%" stopColor="#e23838" />
-                                <stop offset="33%" stopColor="#973999" />
-                                <stop offset="67%" stopColor="#009cdf" />
-                                <stop offset="100%" stopColor="#5ebd3e" />
-                            </linearGradient>
-                        </defs>
-                        <g fill="none" strokeLinecap="round" strokeWidth="16">
-                            <g className="ip__track" stroke="#ddd">
-                                <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
-                                <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
-                            </g>
-                            <g strokeDasharray="180 656">
-                                <path className="ip__worm1" stroke="url(#grad1)" strokeDashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
-                                <path className="ip__worm2" stroke="url(#grad2)" strokeDashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
-                            </g>
-                        </g>
-                    </svg>
-                    <p> {t('transcribing')} </p>
-                </main>
+                // 1️⃣ While waiting for the estimate:
+                estimatedTime === null ? (
+                    <div className={styles.loadingContainer}>
+                        <p className={styles.loadingText}>
+                            Calcul du temps de transcription…
+                        </p>
+                    </div>
+                ) : (
+                    // 2️⃣ Once we have the estimate, show progress:
+                    <div className={styles.loadingContainer}>
+                        <div className={styles.loadingContent}>
+                            <p className={styles.loadingText}>{t('transcribing')}</p>
+                            <p className={styles.estimatedTime}>
+                                {t('estimated_time', { seconds: estimatedTime })}
+                            </p>
+                            <div className={styles.progressWrapper}>
+                                <progress
+                                    className={styles.progressBar}
+                                    value={elapsed}
+                                    max={estimatedTime}
+                                />
+                                <div className={styles.progressTrack}></div>
+                            </div>
+                            <div className={styles.timeLabels}>
+                                <span>{Math.min(elapsed, estimatedTime)}s</span>
+                                <span>{estimatedTime}s</span>
+                            </div>
+                        </div>
+                    </div>
+                )
             )}
+
             {error && <p className={styles.errorMessage}>{error}</p>}
             {!loading && !error && segments.length === 0 && videoId && (
                 <p className={styles.emptyMessage}>{t('no_segments')}</p>
