@@ -1,7 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001/ai-transcriptor-app-48cea/us-central1"
 
-export async function transcribeVideo(videoId: string, language: string) {
-  const response = await fetch(`${BASE_URL}/processVideo`, {
+export async function transcriptAudioCall(videoId: string, language: string) {
+  const response = await fetch(`${BASE_URL}/transcriptAudio`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

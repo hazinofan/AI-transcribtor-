@@ -52,7 +52,7 @@ Implemented advanced synchronization between the displayed transcription segment
     *   The main `useEffect` hook for fetching transcription data now explicitly resets the `player` state to `null` when `videoId` changes. This ensures that a new player instance is correctly initialized for the new video and prevents issues with stale player references.
 
 9.  **Robust Error Handling:**
-    *   The `transcribeVideo` function and its calling `useEffect` have been updated to better parse and display error messages originating from the backend API or fetch failures.
+    *   The `transcriptAudioCall` function and its calling `useEffect` have been updated to better parse and display error messages originating from the backend API or fetch failures.
 
 10. **CSS Adjustments for `react-youtube`:**
     *   CSS classes `styles.videoPlayer` (for the wrapper div) and `styles.videoPlayerIframe` (for the actual iframe) are used to ensure proper styling of the embedded player.

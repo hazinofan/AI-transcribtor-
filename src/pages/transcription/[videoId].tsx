@@ -10,29 +10,26 @@ const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
     'http://localhost:5001/ai-transcriptor-app-48cea/us-central1'; // Corrected BASE_URL
 
-async function estimateTime(videoId: string) {
+async function estimateTranscriptionTimeCall(videoId: string) {
     const res = await fetch(`${BASE_URL}/estimateTranscriptionTime`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            data: {
-                videoId,
-                url: `https://www.youtube.com/watch?v=${videoId}`
-            }
+            data: {videoId}
         })
     });
     if (!res.ok) throw new Error(`Estimate API returned ${res.status}`);
     const { result } = await res.json();
-    return result.estimatedTimeSec as number;
+    return result.estimatedTranscriptTimeSec as number;
 }
 
 
-async function transcribeVideo(videoId: string, language: string) {
-    const res = await fetch(`${BASE_URL}/processVideo`, {
+async function transcriptAudioCall(videoId: string, language: string) {
+    const res = await fetch(`${BASE_URL}/transcriptAudio`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            data: { videoId, url: `https://www.youtube.com/watch?v=${videoId}`, targetLanguage: language }
+            data: { videoId, targetLanguage: language }
         }),
     });
     if (!res.ok) throw new Error(`Transcription API returned ${res.status}`);
@@ -95,7 +92,8 @@ export default function TranscriptionPage() {
 
             try {
                 // 1) get estimate
-                const e = await estimateTime(videoId);
+                if (!videoId) throw new Error('Video ID is null');
+                const e = await estimateTranscriptionTimeCall(videoId);
                 setEstimatedTime(e);
 
                 // start a 1-sec tick to update your progress
@@ -110,7 +108,7 @@ export default function TranscriptionPage() {
                 }, 1000);
 
                 // 2) now fire the real transcription
-                const data = await transcribeVideo(videoId, lang);
+                const data = await transcriptAudioCall(videoId, lang);
                 setSegments(data.result.output || []);
             } catch (err: any) {
                 console.error(err);
@@ -252,14 +250,14 @@ export default function TranscriptionPage() {
 
     const playerOpts: YouTubeProps['opts'] = {
         playerVars: {
-            autoplay: 1,
+            autoplay: 0,
             controls: 1, // Set to 1 to show controls, 0 to hide
             loop: 0, // Loop is often better handled by custom logic if needed with segments
             // playlist: videoId || undefined, // Only needed with loop=1 for single video
             modestbranding: 1,
             rel: 0,
-            fs: 1, // Allow fullscreen
-            disablekb: 0, // Enable keyboard controls
+            fs: 0, // Allow fullscreen
+            disablekb: 1, // Enable keyboard controls
         },
     };
 
