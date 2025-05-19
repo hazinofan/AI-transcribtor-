@@ -343,17 +343,27 @@ export default function TranscriptionPage() {
                             <p className={styles.estimatedTime}>
                                 {t('estimated_time', { seconds: estimatedTime })}
                             </p>
-                            <div className={styles.progressWrapper}>
-                                <progress
-                                    className={styles.progressBar}
-                                    value={elapsed}
-                                    max={estimatedTime}
-                                />
-                                <div className={styles.progressTrack}></div>
+                            <div className={styles.progressDisplayContainer}>
+                                <div className={styles.progressWrapper}>
+                                    <progress
+                                        className={styles.progressBar}
+                                        value={elapsed}
+                                        max={estimatedTime}
+                                    />
+                                    <div className={styles.progressTrack}></div>
+                                </div>
+                                {estimatedTime > 0 && (
+                                    <span className={styles.progressPercentage}>
+                                        {Math.round((elapsed / estimatedTime) * 100)}%
+                                    </span>
+                                )}
                             </div>
                             <div className={styles.timeLabels}>
-                                <span>{Math.min(elapsed, estimatedTime)}s</span>
-                                <span>{estimatedTime}s</span>
+                                {estimatedTime > 0 && elapsed < estimatedTime && (
+                                    <span className={styles.remainingTimeText}>
+                                        {t('remaining_time', { seconds: estimatedTime - elapsed })}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>

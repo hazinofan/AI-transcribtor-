@@ -9,7 +9,7 @@
   "placeholder_url": "https://www.youtube.com/...",
   "lang_fr": "Français",
   "lang_en": "Anglais",
-  "button_go": "C’est parti !",
+  "button_go": "C'est parti !",
   "footer_apropos": "À propos",
   "footer_contact": "Contact",
   "footer_rights": "©{{year}} {{app}}, Tous droits réservés.",
@@ -24,5 +24,6 @@
   "key_vocabulary": "Vocabulaire clé",
   "keyboard_controls_hint": "Utilisez ← → pour naviguer entre les segments, Espace pour lecture/pause.",
   "estimated_time": "Temps estimé : {{seconds}} s",
+  "remaining_time": "{{seconds}}s restantes...",
   "calcul_estimation": "Calcul du temps de transcription…"
 }

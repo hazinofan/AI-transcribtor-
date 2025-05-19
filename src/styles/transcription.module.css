@@ -57,6 +57,102 @@
     margin: 20px 0;
 }
 
+/* Progress Bar Enhancements */
+.loadingContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Or your desired max width */
+}
+
+.loadingText {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.estimatedTime {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.progressDisplayContainer { /* New style for the container of bar + percentage */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px; /* Space before time labels below */
+}
+
+.progressWrapper {
+    /* position: relative; */ /* No longer needed for this element */
+    flex-grow: 1; /* Allow progress bar to take available space */
+    height: 20px; /* Example height, adjust as needed */
+    background-color: #e0e0e0; /* Track color */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures progress bar stays within bounds */
+    /* margin-bottom: 5px; */ /* Moved to progressDisplayContainer */
+}
+
+.progressBar {
+    width: 100%; /* Take full width of wrapper initially */
+    height: 100%;
+    background-color: #e0e0e0; /* Track color (for Firefox track mainly) */
+    border-radius: 10px;
+    /* transition: width 0.2s ease-out; */ /* Removed: Transition handled by pseudo-elements */
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.progressBar::-webkit-progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin: 0;
+    overflow: hidden; /* Add overflow hidden to help contain the value */
+}
+
+.progressBar::-webkit-progress-value {
+    background-color: #00632E;
+    border-radius: 10px;
+    transition: width 0.2s ease-out;
+    margin: 0;
+}
+
+/* For Firefox */
+.progressBar::-moz-progress-bar {
+    background-color: #00632E;
+    border-radius: 10px;
+    transition: width 0.2s ease-out;
+}
+
+.progressPercentage {
+    /* position: absolute; */ /* Removed absolute positioning */
+    /* right: 10px; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    margin-left: 10px; /* Space between bar and percentage */
+    font-size: 1em;  /* Adjusted from 0.8em based on screenshot */
+    color: #2e2e2e; /* Red color as in the image */
+    font-weight: bold;
+    /* line-height: 20px; */ /* Vertical alignment handled by flex container */
+}
+
+.timeLabels {
+    display: flex;
+    justify-content: center; /* Center the remaining time text */
+    width: 100%;
+    font-size: 0.85em;
+    color: #555;
+    margin-top: 5px; /* Add some space above the time labels */
+}
+
+.remainingTimeText {
+    /* Style for the remaining time text, e.g., color, font-weight */
+    color: #333;
+    font-style: italic;
+}
+
 /* Segment Container */
 .segmentContainer {
     max-width: 1000px;
