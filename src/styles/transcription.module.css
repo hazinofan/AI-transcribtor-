@@ -22,7 +22,7 @@
     width: 100%;
     max-width: 800px; /* Or your desired max-width */
     aspect-ratio: 16/9;
-    margin: 0 auto 30px;
+    margin: 0 auto 15px; /* Reduced bottom margin from 30px */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -156,7 +156,7 @@
 /* Segment Container */
 .segmentContainer {
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 0 auto; /* Ensures segmentContainer itself is centered */
     background-color: white;
     border-radius: 15px;
     overflow: hidden;
@@ -206,20 +206,31 @@
     gap: 20px; /* Adjust this value to control the space between counter and timestamp */
 }
 
+/* New container for segment and vocabulary - Changed to relative positioning context */
+.mainContentArea {
+    position: relative; /* For absolute positioning of vocabularyBox */
+    padding: 10px 0; /* Reduced top/bottom padding from 20px */
+    /* display: flex; */ /* Removed */
+    /* gap: 20px; */ /* Removed */
+}
+
 /* Segment Content */
 .segmentContent {
     display: flex;
-    min-height: 300px;
+    flex-direction: column; /* Stack translation and arabic vertically */
+    /* min-height: 300px; */ /* Removed to allow content to define height */
+    flex: 3; /* Takes more space - relative to sibling .vocabularyBox if .mainContentArea was flex */
 }
 
 .translationSide, .arabicSide {
     flex: 1;
-    padding: 25px;
-    background-color: #f9f9f9;
+    padding: 20px 25px; /* Reduced vertical padding, kept horizontal */
+    /* background-color: #f9f9f9; */ /* Base color can be on segmentContent if uniform */
 }
 
 .translationSide {
-    border-right: 1px solid #eee;
+    /* border-right: 1px solid #eee; */ /* Removed */
+    border-bottom: 1px solid #eee; /* Added */
     background-color: #fefefe;
 }
 
@@ -249,18 +260,28 @@
     font-size: 3rem;
 }
 
-/* Vocabulary Box */
+/* Vocabulary Box - Updated for absolute positioning */
 .vocabularyBox {
-    margin-top: 25px;
+    /* margin-top: 25px; */ /* Removed */
     padding: 15px;
-    background-color: #f1f8fe;
+    background-color: #FFFDE7; /* Changed from #f1f8fe to light yellow */
     border-radius: 8px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #ECAE2E; /* Changed from #3498db to user's yellow */
+    /* flex: 1; */ /* Removed */
+    /* margin-left: 20px; */ /* Removed */
+    /* align-self: flex-start; */ /* Removed */
+    max-height: 500px; /* Example: to make it scrollable if too long */
+    overflow-y: auto; /* Add scroll for overflow */
+
+    position: absolute;
+    top: 20px; /* Aligns with segmentContainer considering mainContentArea padding */
+    left: calc(50% + 500px + 20px); /* 50% (parent center) + half segment max-width + gap */
+    width: 300px; /* Fixed width for the vocabulary box */
 }
 
 .vocabularyTitle {
     font-size: 1rem;
-    color: #3498db;
+    color: #d89a1e; /* Changed from #3498db to user's yellow */
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -296,7 +317,7 @@
 
 .keyboardHint {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px; /* Reduced from 20px */
     margin-bottom: 10px; /* Added some bottom margin */
     font-size: 0.9rem;
     color: #555;
@@ -308,6 +329,18 @@
         flex-direction: column;
     }
     
+    /* .mainContentArea responsive rules removed as it's no longer flex */
+    /* 
+    .mainContentArea { 
+        flex-direction: column;
+    }
+    */
+    
+    /* .vocabularyBox rules for 768px are now handled by the 1370px breakpoint, 
+       unless specific overrides for very small screens are needed here.
+       The 1370px rule will make it stack and center. 
+    */
+
     .translationSide {
         border-right: none;
         border-bottom: 1px solid #eee;
@@ -319,5 +352,20 @@
     
     .arabicText {
         font-size: 1.3rem;
+    }
+}
+
+/* New Media Query for stacking vocabulary box */
+@media (max-width: 1370px) {
+    .vocabularyBox {
+        position: static;
+        width: auto; /* Allow it to take natural width up to max-width */
+        max-width: 1000px; /* Match segment container's max-width for consistency */
+        margin: 20px auto 0; /* Top margin, centered horizontally */
+        left: auto; /* Reset absolute positioning */
+        top: auto; /* Reset absolute positioning */
+        /* Optional: Adjust border for stacked layout */
+        /* border-left: none; */
+        /* border-top: 4px solid #3498db; */
     }
 }

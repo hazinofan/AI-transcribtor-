@@ -3,12 +3,12 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube'; // Import react-youtube
+import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
 import styles from '../../styles/transcription.module.css';
 
 const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    'http://localhost:5001/ai-transcriptor-app-48cea/us-central1'; // Corrected BASE_URL
+    'http://localhost:5001/ai-transcriptor-app-48cea/us-central1';
 
 async function estimateTranscriptionTimeCall(videoId: string) {
     const res = await fetch(`${BASE_URL}/estimateTranscriptionTime`, {
@@ -377,60 +377,60 @@ export default function TranscriptionPage() {
 
             {/* Current Segment Display */}
             {!loading && segments.length > 0 && (
-                <div className={styles.segmentContainer}>
-                    <div className={styles.segmentNavigation}>
-                        <button
-                            onClick={handlePrevSegment}
-                            disabled={currentSegment === 0}
-                            className={`${styles.navButton} ${currentSegment === 0 ? styles.disabledButton : ''}`}
-                        >
-                            ← {t('previous')}
-                        </button>
-                        <div className={styles.segmentInfoGroup}>
-                            <span className={styles.segmentCounter}>
-                                {t('segment_counter', { current: currentSegment + 1, total: segments.length })}
-                            </span>
-                            <span className={styles.segmentTimestamp}>
-                                {segments[currentSegment].startTime} – {segments[currentSegment].endTime}
-                            </span>
-                        </div>
-                        <button
-                            onClick={handleNextSegment}
-                            disabled={currentSegment === segments.length - 1}
-                            className={`${styles.navButton} ${currentSegment === segments.length - 1 ? styles.disabledButton : ''}`}
-                        >
-                            {t('next')} →
-                        </button>
-                    </div>
-
-                    <div className={styles.segmentContent}>
-                        <div className={styles.translationSide}>
-                            <p className={styles.translationText}>
-                                {segments[currentSegment].translation}
-                            </p>
-
-                            {/* Display Key Vocabulary */}
-                            {keyVocab && keyVocab[currentSegment] && keyVocab[currentSegment].length > 0 && (
-                                <div className={styles.vocabularyBox}>
-                                    <h3 className={styles.vocabularyTitle}>{t('key_vocabulary')}</h3>
-                                    <ul className={styles.vocabularyList}>
-                                        {keyVocab[currentSegment].map((vocab, j) => (
-                                            <li key={j} className={styles.vocabularyItem}>
-                                                <span className={styles.vocabularyArabic}>{vocab.original}</span>
-                                                <span className={styles.vocabularyTranslation}>{vocab.translation}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
+                <div className={styles.mainContentArea}>
+                    <div className={styles.segmentContainer}>
+                        <div className={styles.segmentNavigation}>
+                            <button
+                                onClick={handlePrevSegment}
+                                disabled={currentSegment === 0}
+                                className={`${styles.navButton} ${currentSegment === 0 ? styles.disabledButton : ''}`}
+                            >
+                                ← {t('previous')}
+                            </button>
+                            <div className={styles.segmentInfoGroup}>
+                                <span className={styles.segmentCounter}>
+                                    {t('segment_counter', { current: currentSegment + 1, total: segments.length })}
+                                </span>
+                                <span className={styles.segmentTimestamp}>
+                                    {segments[currentSegment].startTime} – {segments[currentSegment].endTime}
+                                </span>
+                            </div>
+                            <button
+                                onClick={handleNextSegment}
+                                disabled={currentSegment === segments.length - 1}
+                                className={`${styles.navButton} ${currentSegment === segments.length - 1 ? styles.disabledButton : ''}`}
+                            >
+                                {t('next')} →
+                            </button>
                         </div>
 
-                        <div className={styles.arabicSide}>
-                            <p className={styles.arabicText} dir="rtl">
-                                {segments[currentSegment].arabic}
-                            </p>
+                        <div className={styles.segmentContent}>
+                            <div className={styles.translationSide}>
+                                <p className={styles.translationText}>
+                                    {segments[currentSegment].translation}
+                                </p>
+                            </div>
+
+                            <div className={styles.arabicSide}>
+                                <p className={styles.arabicText} dir="rtl">
+                                    {segments[currentSegment].arabic}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    {keyVocab && keyVocab[currentSegment] && keyVocab[currentSegment].length > 0 && (
+                        <div className={styles.vocabularyBox}>
+                            <h3 className={styles.vocabularyTitle}>{t('key_vocabulary')}</h3>
+                            <ul className={styles.vocabularyList}>
+                                {keyVocab[currentSegment].map((vocab, j) => (
+                                    <li key={j} className={styles.vocabularyItem}>
+                                        <span className={styles.vocabularyArabic}>{vocab.original}</span>
+                                        <span className={styles.vocabularyTranslation}>{vocab.translation}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             )}
             {/* Keyboard Controls Hint */}
