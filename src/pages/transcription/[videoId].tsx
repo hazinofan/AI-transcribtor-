@@ -3,12 +3,12 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube'; // Import react-youtube
+import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
 import styles from '../../styles/transcription.module.css';
 
 const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    'http://localhost:5001/ai-transcriptor-app-48cea/us-central1'; // Corrected BASE_URL
+    'http://localhost:5001/ai-transcriptor-app-48cea/us-central1';
 
 async function estimateTranscriptionTimeCall(videoId: string) {
     const res = await fetch(`${BASE_URL}/estimateTranscriptionTime`, {

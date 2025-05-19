@@ -56,7 +56,7 @@ const Index = () => {
           <option value="en">{t('lang_en')}</option>
         </select>
 
-        <button className="styled-button" onClick={handleSubmit}>
+        <button className="styled-button hover:-translate-x-1 hover:-translate-y-1 hover:bg-yellow-600" onClick={handleSubmit}>
           {t('button_go')}
         </button>
       </div>

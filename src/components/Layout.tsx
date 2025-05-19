@@ -4,8 +4,13 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { t, i18n } = useTranslation('common')
-  const { locale } = useRouter()
+  const { t } = useTranslation('common')
+  const router = useRouter()
+  const { locale, pathname, query, asPath } = router
+
+  const handleLocaleChange = (newLocale: string) => {
+    router.push({ pathname, query }, asPath, { locale: newLocale })
+  }
 
   return (
     <div className="wrapper">
@@ -17,14 +22,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <img
             src="/assets/eng-flag.svg"
             alt={t('lang_en')}
-            onClick={() => i18n.changeLanguage('en')}
+            onClick={() => handleLocaleChange('en')}
             className={locale === 'en' ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
           />
           <img
             src="/assets/fr-flag.png"
             alt={t('lang_fr')}
-            onClick={() => i18n.changeLanguage('fr')}
+            onClick={() => handleLocaleChange('fr')}
             className={locale === 'fr' ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
           />
         </div>
       </header>
