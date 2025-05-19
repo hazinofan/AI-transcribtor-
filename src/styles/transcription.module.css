@@ -12,7 +12,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30vh;
+    padding-top: 5px;    /* Reduced top space */
+    padding-bottom: 10px; /* Adjusted bottom space */
     font-size: 1.2rem;
     color: #555;
 }
