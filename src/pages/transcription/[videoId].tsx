@@ -40,12 +40,30 @@ async function transcriptAudioCall(videoId: string, language: string) {
     return data;
 }
 
+async function extractKeyVocabCall(videoId: string, language: string) {
+    const res = await fetch(`${BASE_URL}/extractKeyVocab`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: { videoId, targetLanguage: language } }),
+    });
+    if (!res.ok) throw new Error(`Key Vocab API returned ${res.status}`);
+    const data = await res.json();
+    if (data.error || data.result?.error) { // Check for backend errors
+        throw new Error(data.error?.message || data.result?.error || `Key Vocab extraction failed`);
+    }
+    return data;
+}
+
 type Segment = {
     startTime: string;
     endTime: string;
     arabic: string;
     translation: string;
-    vocabulary?: { arabic: string; translation: string }[];
+};
+
+type KeyVocab = {
+    original: string;
+    translation: string;
 };
 
 // Helper function to convert MM:SS to seconds
@@ -74,6 +92,7 @@ export default function TranscriptionPage() {
     const [currentSegment, setCurrentSegment] = useState<number>(0);
     const [player, setPlayer] = useState<YouTubePlayer | null>(null);
     const animationFrameIdRef = useRef<number | null>(null);
+    const [keyVocab, setKeyVocab] = useState<KeyVocab[][] | null>(null); // New state for key vocabulary
 
     // Fetch transcription data
     useEffect(() => {
@@ -109,11 +128,27 @@ export default function TranscriptionPage() {
 
                 // 2) now fire the real transcription
                 const data = await transcriptAudioCall(videoId, lang);
-                setSegments(data.result.output || []);
+                const transcriptSegments = data.result.data || [];
+                setSegments(transcriptSegments);
+
+                // 3) fire key vocab extraction without awaiting
+                extractKeyVocabCall(videoId, lang).then(vocabData => {
+                    if (vocabData.result && Array.isArray(vocabData.result.data)) {
+                        setKeyVocab(vocabData.result.data as KeyVocab[][]); // Set vocabulary data in new state
+                        console.log(`✅ Key vocabulary data loaded for videoId: ${videoId}`);
+                    } else {
+                        console.warn('⚠️ Key vocabulary extraction returned unexpected data:', vocabData);
+                    }
+                }).catch(vocabErr => {
+                    console.error('❌ Error extracting key vocabulary:', vocabErr);
+                    // Optionally set an error state specifically for vocab extraction if needed
+                });
+
             } catch (err: any) {
                 console.error(err);
                 setError(err.message || t('error_fetch'));
             } finally {
+                // Ensure loading is set to false after transcription is available
                 clearInterval(timerId);
                 setLoading(false);
             }
@@ -362,13 +397,14 @@ export default function TranscriptionPage() {
                                 {segments[currentSegment].translation}
                             </p>
 
-                            {segments[currentSegment].vocabulary && segments[currentSegment].vocabulary!.length > 0 && (
+                            {/* Display Key Vocabulary */}
+                            {keyVocab && keyVocab[currentSegment] && keyVocab[currentSegment].length > 0 && (
                                 <div className={styles.vocabularyBox}>
                                     <h3 className={styles.vocabularyTitle}>{t('key_vocabulary')}</h3>
                                     <ul className={styles.vocabularyList}>
-                                        {segments[currentSegment].vocabulary!.map((vocab, j) => (
+                                        {keyVocab[currentSegment].map((vocab, j) => (
                                             <li key={j} className={styles.vocabularyItem}>
-                                                <span className={styles.vocabularyArabic}>{vocab.arabic}</span>
+                                                <span className={styles.vocabularyArabic}>{vocab.original}</span>
                                                 <span className={styles.vocabularyTranslation}>{vocab.translation}</span>
                                             </li>
                                         ))}
