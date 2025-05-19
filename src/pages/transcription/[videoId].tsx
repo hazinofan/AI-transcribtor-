@@ -386,9 +386,14 @@ export default function TranscriptionPage() {
                         >
                             ← {t('previous')}
                         </button>
-                        <span className={styles.segmentCounter}>
-                            {t('segment_counter', { current: currentSegment + 1, total: segments.length })}
-                        </span>
+                        <div className={styles.segmentInfoGroup}>
+                            <span className={styles.segmentCounter}>
+                                {t('segment_counter', { current: currentSegment + 1, total: segments.length })}
+                            </span>
+                            <span className={styles.segmentTimestamp}>
+                                {segments[currentSegment].startTime} – {segments[currentSegment].endTime}
+                            </span>
+                        </div>
                         <button
                             onClick={handleNextSegment}
                             disabled={currentSegment === segments.length - 1}
@@ -400,9 +405,6 @@ export default function TranscriptionPage() {
 
                     <div className={styles.segmentContent}>
                         <div className={styles.translationSide}>
-                            <div className={styles.timeStamp}>
-                                {segments[currentSegment].startTime} – {segments[currentSegment].endTime}
-                            </div>
                             <p className={styles.translationText}>
                                 {segments[currentSegment].translation}
                             </p>
@@ -424,9 +426,6 @@ export default function TranscriptionPage() {
                         </div>
 
                         <div className={styles.arabicSide}>
-                            <div className={styles.timeStamp}>
-                                {segments[currentSegment].startTime} – {segments[currentSegment].endTime}
-                            </div>
                             <p className={styles.arabicText} dir="rtl">
                                 {segments[currentSegment].arabic}
                             </p>

@@ -199,6 +199,13 @@
     font-weight: 500;
 }
 
+/* New style for grouping segment counter and timestamp */
+.segmentInfoGroup {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px; /* Adjust this value to control the space between counter and timestamp */
+}
+
 /* Segment Content */
 .segmentContent {
     display: flex;
@@ -208,6 +215,7 @@
 .translationSide, .arabicSide {
     flex: 1;
     padding: 25px;
+    background-color: #f9f9f9;
 }
 
 .translationSide {
@@ -219,11 +227,12 @@
     background-color: #f9f9f9;
 }
 
-.timeStamp {
+.segmentTimestamp { /* Renamed from timeStamp and potentially adjusted */
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
-    color: #7f8c8d;
-    margin-bottom: 15px;
+    color: #e0e0e0; /* Lighter color to contrast with dark green background */
+    margin: 0; /* Removed horizontal margins, spacing now handled by segmentInfoGroup gap */
+    /* Removed margin-bottom: 15px; as it's no longer needed here */
 }
 
 .translationText {
