@@ -264,9 +264,9 @@
 .vocabularyBox {
     /* margin-top: 25px; */ /* Removed */
     padding: 15px;
-    background-color: #f1f8fe;
+    background-color: #FFFDE7; /* Changed from #f1f8fe to light yellow */
     border-radius: 8px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #ECAE2E; /* Changed from #3498db to user's yellow */
     /* flex: 1; */ /* Removed */
     /* margin-left: 20px; */ /* Removed */
     /* align-self: flex-start; */ /* Removed */
@@ -281,7 +281,7 @@
 
 .vocabularyTitle {
     font-size: 1rem;
-    color: #3498db;
+    color: #d89a1e; /* Changed from #3498db to user's yellow */
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -317,7 +317,7 @@
 
 .keyboardHint {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px; /* Reduced from 20px */
     margin-bottom: 10px; /* Added some bottom margin */
     font-size: 0.9rem;
     color: #555;
