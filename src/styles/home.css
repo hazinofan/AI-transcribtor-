@@ -232,7 +232,8 @@ p.sub-title {
 }
 
 select.styled-input {
-    flex-grow: 0; /* Prevent the select from growing to fill extra space */
+    flex-grow: 0;
+    /* Prevent the select from growing to fill extra space */
 }
 
 /* button matches input’s shadow + border */
@@ -241,7 +242,7 @@ select.styled-input {
     padding: 0 1rem;
     background: #F7B36A;
     /* your orange */
-    border: 2px solid #000;
+    border: 3px 4px black;
     box-shadow: 5px 7px black;
     font-size: 1rem;
     cursor: pointer;
@@ -272,4 +273,30 @@ input.styled-input {
     top: 18.5rem;
     right: 45.1rem;
     transform: rotate(20deg);
+}
+
+.btn-container {
+  display: inline-block;
+  position: relative;
+}
+.btn-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: 5px 7px 0 rgba(0,0,0,0.2);
+  border-radius: 4px; 
+  pointer-events: none;
+}
+
+.styled-button {
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.btn-container:hover .styled-button {
+  transform: translate(-4px, -4px);
+}
+
+.styled-button:active {
+  transform: translate(0, 0);
 }
