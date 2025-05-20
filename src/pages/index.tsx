@@ -33,9 +33,9 @@ const Index = () => {
       </div>
       <img src="/assets/green-star.svg" alt="" className="star star--right" />
       <img
-        src="/assets/writing-hand-with-shadow.svg"
+        src="/assets/writing-hand.svg"
         alt=""
-        className="star star--center"
+        className="star writing-hand"
       />
 
       <div className="input_container">
@@ -57,6 +57,7 @@ const Index = () => {
         </select>
 
         <div className="btn-container">
+          <div className="button-shadow"></div>
           <button className="styled-button" onClick={handleSubmit}>
             {t('button_go')}
           </button>
