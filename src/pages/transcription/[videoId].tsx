@@ -5,6 +5,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
 import styles from '../../styles/transcription.module.css';
+import animationData from '../../../public/assets/writing-feather-yellow.json';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Lottie component with SSR disabled
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
@@ -305,6 +310,16 @@ export default function TranscriptionPage() {
         },
     };
 
+    // Lottie animation options
+    const lottieOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
     if (!videoId && !loading && !isReady) { // Handle case where videoId might still be undefined during initial Next.js render passes
         return (
             <div className={styles.loadingContainer}>
@@ -349,6 +364,15 @@ export default function TranscriptionPage() {
                     <div className={styles.loadingContainer}>
                         <div className={styles.loadingContent}>
                             <p className={styles.loadingText}>{t('transcribing')}</p>
+                            <div className={styles.lottieContainer}>
+                                <Lottie
+                                    animationData={lottieOptions.animationData}
+                                    loop={lottieOptions.loop}
+                                    autoplay={lottieOptions.autoplay}
+                                    rendererSettings={lottieOptions.rendererSettings}
+                                    //style={{ width: 100, height: 100 }} // Adjusted size
+                                />
+                            </div>
                             <p className={styles.estimatedTime}>
                                 {t('estimated_time', { seconds: estimatedTime })}
                             </p>
@@ -377,7 +401,18 @@ export default function TranscriptionPage() {
                 ) : (
                     // 3️⃣ Estimate is 0 (or not positive), just show "transcribing"
                     <div className={styles.loadingContainer}>
+                        <div className={styles.loadingContent}>
                         <p className={styles.loadingText}>{t('transcribing')}</p>
+                            <div className={styles.lottieContainer}>
+                                <Lottie
+                                    animationData={lottieOptions.animationData}
+                                    loop={lottieOptions.loop}
+                                    autoplay={lottieOptions.autoplay}
+                                    rendererSettings={lottieOptions.rendererSettings}
+                                    //style={{ width: 100, height: 100 }} // Adjusted size
+                                />
+                            </div>
+                        </div>
                     </div>
                 )
             )}

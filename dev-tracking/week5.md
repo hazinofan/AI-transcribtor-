@@ -31,6 +31,10 @@
     - If the estimated time is 0 (due to backend error or missing data), the UI now displays a simpler "Transcription en cours, veuillez patienter…" message without progress details.
     - Ensured the progress timer is only active when the estimated time is greater than 0.
     - Corrected the translation key for "Calcul du temps de transcription…" to use the existing `calcul_estimation` key.
+- **Integrated Lottie Animation:**
+    - Added a Lottie animation to the transcription loading state using the `lottie-react` library.
+    - Ensured the animation is displayed prominently during the loading process and hidden once the transcription is complete.
+    - Handled client-side rendering of the Lottie animation in Next.js using dynamic imports to prevent "document is not defined" errors during server-side rendering.
 
 ## Known Issues / Observations
 - "Fast Refresh had to perform a full reload" messages may still appear in the console during development. These are often non-critical if the application functions correctly. 
