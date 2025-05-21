@@ -376,7 +376,7 @@ export default function TranscriptionPage() {
                     <div className={styles.loadingContainer}>
                         <div className={styles.loadingContent}>
                             <p className={styles.loadingText}>{t('transcribing')}</p>
-                            <div className={styles.lottieContainer}>
+                            <div className={styles.lottieContainer} style={{ marginTop: '-50px', marginBottom: '-40px' }}>
                                 <Lottie
                                     animationData={lottieOptions.animationData}
                                     loop={lottieOptions.loop}
@@ -415,7 +415,7 @@ export default function TranscriptionPage() {
                     <div className={styles.loadingContainer}>
                         <div className={styles.loadingContent}>
                         <p className={styles.loadingText}>{t('transcribing')}</p>
-                            <div className={styles.lottieContainer}>
+                            <div className={styles.lottieContainer} style={{ marginTop: '-50px' }}>
                                 <Lottie
                                     animationData={lottieOptions.animationData}
                                     loop={lottieOptions.loop}
