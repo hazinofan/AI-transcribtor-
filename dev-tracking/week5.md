@@ -25,5 +25,12 @@
 ### Code Style
 - Applied Allman style bracing to `Layout.tsx` and `_app.tsx` as per user instruction.
 
+### Transcription Page Improvements (`transcription/[videoId].tsx`)
+- **Improved Loading State Handling:**
+    - Updated the loading UI to conditionally display the transcription progress bar and estimated time only when the backend successfully returns a positive estimated time.
+    - If the estimated time is 0 (due to backend error or missing data), the UI now displays a simpler "Transcription en cours, veuillez patienter…" message without progress details.
+    - Ensured the progress timer is only active when the estimated time is greater than 0.
+    - Corrected the translation key for "Calcul du temps de transcription…" to use the existing `calcul_estimation` key.
+
 ## Known Issues / Observations
 - "Fast Refresh had to perform a full reload" messages may still appear in the console during development. These are often non-critical if the application functions correctly. 

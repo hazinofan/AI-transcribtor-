@@ -100,7 +100,7 @@ export default function TranscriptionPage() {
             setLoading(false);
             return;
         }
-        let timerId: ReturnType<typeof setInterval>;
+        let timerId: ReturnType<typeof setInterval> | undefined; // Ensure timerId can be undefined
 
         async function go() {
             setLoading(true);
@@ -115,16 +115,20 @@ export default function TranscriptionPage() {
                 const e = await estimateTranscriptionTimeCall(videoId);
                 setEstimatedTime(e);
 
-                // start a 1-sec tick to update your progress
-                timerId = setInterval(() => {
-                    setElapsed(old => {
-                        if (old + 1 >= e) {
-                            clearInterval(timerId);
-                            return e;
-                        }
-                        return old + 1;
-                    });
-                }, 1000);
+                // start a 1-sec tick to update your progress only if estimate is positive
+                if (e > 0) {
+                    timerId = setInterval(() => {
+                        setElapsed(old => {
+                            // Ensure e is treated as estimatedTime from state if it might change,
+                            // but here e is from the initial call and should be stable for this timer.
+                            if (old + 1 >= e) {
+                                if (timerId) clearInterval(timerId);
+                                return e;
+                            }
+                            return old + 1;
+                        });
+                    }, 1000);
+                }
 
                 // 2) now fire the real transcription
                 const data = await transcriptAudioCall(videoId, lang);
@@ -148,14 +152,19 @@ export default function TranscriptionPage() {
                 console.error(err);
                 setError(err.message || t('error_fetch'));
             } finally {
-                // Ensure loading is set to false after transcription is available
-                clearInterval(timerId);
-                setLoading(false);
+                if (timerId) {
+                    clearInterval(timerId);
+                }
             }
         }
 
-        go();
-        return () => clearInterval(timerId);
+        go().finally(() => {
+             setLoading(false);
+        });
+
+        return () => {
+            if (timerId) clearInterval(timerId);
+        };
     }, [videoId, lang, t]);
 
 
@@ -328,15 +337,15 @@ export default function TranscriptionPage() {
 
             {/* Status / Messages */}
             {loading && (
-                // 1️⃣ While waiting for the estimate:
                 estimatedTime === null ? (
+                    // 1️⃣ While waiting for the estimate:
                     <div className={styles.loadingContainer}>
                         <p className={styles.loadingText}>
-                            Calcul du temps de transcription…
+                            {t('calcul_estimation')}
                         </p>
                     </div>
-                ) : (
-                    // 2️⃣ Once we have the estimate, show progress:
+                ) : estimatedTime > 0 ? (
+                    // 2️⃣ Once we have a positive estimate, show progress:
                     <div className={styles.loadingContainer}>
                         <div className={styles.loadingContent}>
                             <p className={styles.loadingText}>{t('transcribing')}</p>
@@ -352,20 +361,23 @@ export default function TranscriptionPage() {
                                     />
                                     <div className={styles.progressTrack}></div>
                                 </div>
-                                {estimatedTime > 0 && (
-                                    <span className={styles.progressPercentage}>
-                                        {Math.round((elapsed / estimatedTime) * 100)}%
-                                    </span>
-                                )}
+                                <span className={styles.progressPercentage}>
+                                    {Math.round((elapsed / estimatedTime) * 100)}%
+                                </span>
                             </div>
                             <div className={styles.timeLabels}>
-                                {estimatedTime > 0 && elapsed < estimatedTime && (
+                                {elapsed < estimatedTime && ( // Show remaining time only if not completed
                                     <span className={styles.remainingTimeText}>
                                         {t('remaining_time', { seconds: estimatedTime - elapsed })}
                                     </span>
                                 )}
                             </div>
                         </div>
+                    </div>
+                ) : (
+                    // 3️⃣ Estimate is 0 (or not positive), just show "transcribing"
+                    <div className={styles.loadingContainer}>
+                        <p className={styles.loadingText}>{t('transcribing')}</p>
                     </div>
                 )
             )}
