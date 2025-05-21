@@ -25,7 +25,7 @@ async function estimateTranscriptionTimeCall(videoId: string) {
     });
     if (!res.ok) throw new Error(`Estimate API returned ${res.status}`);
     const { result } = await res.json();
-    return result.estimatedTranscriptTimeSec as number;
+    return result;
 }
 
 
@@ -71,6 +71,18 @@ type KeyVocab = {
     translation: string;
 };
 
+// Helper function to format seconds into MM:SS
+function formatSecondsToMMSS(seconds: number): string {
+    if (isNaN(seconds) || seconds < 0) {
+        return '00:00';
+    }
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
+
 // Helper function to convert MM:SS to seconds
 function timeToSeconds(timeStr: string): number {
     if (!timeStr || typeof timeStr !== 'string') return 0;
@@ -88,7 +100,7 @@ export default function TranscriptionPage() {
     const { query, isReady } = useRouter();
     const videoId = isReady && typeof query.videoId === 'string' ? query.videoId : null;
     const lang = isReady && typeof query.lang === 'string' ? query.lang : 'fr';
-    const [estimatedTime, setEstimatedTime] = useState<number | null>(null);
+    const [estimatedTimeData, setEstimatedTimeData] = useState<{ estimatedTranscriptTimeSec: number, estimatedTranscriptTimeFormatted: string } | null>(null);
     // how many seconds have elapsed since we started
     const [elapsed, setElapsed] = useState(0);
     const [segments, setSegments] = useState<Segment[]>([]);
@@ -112,23 +124,23 @@ export default function TranscriptionPage() {
             setError(null);
             setSegments([]);
             setElapsed(0);
-            setEstimatedTime(null);
+            setEstimatedTimeData(null);
 
             try {
                 // 1) get estimate
                 if (!videoId) throw new Error('Video ID is null');
                 const e = await estimateTranscriptionTimeCall(videoId);
-                setEstimatedTime(e);
+                setEstimatedTimeData(e);
 
                 // start a 1-sec tick to update your progress only if estimate is positive
-                if (e > 0) {
+                if (e && e.estimatedTranscriptTimeSec > 0) {
                     timerId = setInterval(() => {
                         setElapsed(old => {
                             // Ensure e is treated as estimatedTime from state if it might change,
                             // but here e is from the initial call and should be stable for this timer.
-                            if (old + 1 >= e) {
+                            if (old + 1 >= e.estimatedTranscriptTimeSec) {
                                 if (timerId) clearInterval(timerId);
-                                return e;
+                                return e.estimatedTranscriptTimeSec;
                             }
                             return old + 1;
                         });
@@ -352,14 +364,14 @@ export default function TranscriptionPage() {
 
             {/* Status / Messages */}
             {loading && (
-                estimatedTime === null ? (
+                estimatedTimeData === null ? (
                     // 1️⃣ While waiting for the estimate:
                     <div className={styles.loadingContainer}>
                         <p className={styles.loadingText}>
                             {t('calcul_estimation')}
                         </p>
                     </div>
-                ) : estimatedTime > 0 ? (
+                ) : estimatedTimeData.estimatedTranscriptTimeSec > 0 ? (
                     // 2️⃣ Once we have a positive estimate, show progress:
                     <div className={styles.loadingContainer}>
                         <div className={styles.loadingContent}>
@@ -374,25 +386,25 @@ export default function TranscriptionPage() {
                                 />
                             </div>
                             <p className={styles.estimatedTime}>
-                                {t('estimated_time', { seconds: estimatedTime })}
+                                {t('estimated_time', { time: estimatedTimeData.estimatedTranscriptTimeFormatted })}
                             </p>
                             <div className={styles.progressDisplayContainer}>
                                 <div className={styles.progressWrapper}>
                                     <progress
                                         className={styles.progressBar}
                                         value={elapsed}
-                                        max={estimatedTime}
+                                        max={estimatedTimeData.estimatedTranscriptTimeSec}
                                     />
                                     <div className={styles.progressTrack}></div>
                                 </div>
                                 <span className={styles.progressPercentage}>
-                                    {Math.round((elapsed / estimatedTime) * 100)}%
+                                    {estimatedTimeData.estimatedTranscriptTimeSec > 0 ? Math.round((elapsed / estimatedTimeData.estimatedTranscriptTimeSec) * 100) : 0}%
                                 </span>
                             </div>
                             <div className={styles.timeLabels}>
-                                {elapsed < estimatedTime && ( // Show remaining time only if not completed
+                                {estimatedTimeData.estimatedTranscriptTimeSec > 0 && elapsed < estimatedTimeData.estimatedTranscriptTimeSec && ( // Show remaining time only if not completed and estimate > 0
                                     <span className={styles.remainingTimeText}>
-                                        {t('remaining_time', { seconds: estimatedTime - elapsed })}
+                                        {t('remaining_time', { time: formatSecondsToMMSS(estimatedTimeData.estimatedTranscriptTimeSec - elapsed) })}
                                     </span>
                                 )}
                             </div>

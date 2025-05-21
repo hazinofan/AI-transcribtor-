@@ -35,6 +35,7 @@
     - Added a Lottie animation to the transcription loading state using the `lottie-react` library.
     - Ensured the animation is displayed prominently during the loading process and hidden once the transcription is complete.
     - Handled client-side rendering of the Lottie animation in Next.js using dynamic imports to prevent "document is not defined" errors during server-side rendering.
+- **Formatted Time Display:** Updated the transcription loading state to display the estimated and remaining times in "MM:SS" format. This involved modifying the backend to return a pre-formatted string and updating the frontend to use this new value. The corresponding i18n translation keys (`estimated_time`, `remaining_time`) in `public/locales/fr/common.json` were also updated from using `{{seconds}}` to `{{time}}`.
 
 ## Known Issues / Observations
 - "Fast Refresh had to perform a full reload" messages may still appear in the console during development. These are often non-critical if the application functions correctly. 

@@ -22,7 +22,7 @@
   "next": "Next",
   "segment_counter": "Segment {{current}} of {{total}}",
   "key_vocabulary": "Key Vocabulary",
-  "keyboard_controls_hint": "Use ← → to navigate segments, Space to play/pause.",
+  "keyboard_controls_hint": "Keyboard: ← → to navigate segments, Space to play/pause.",
   "estimated_time": "Estimated time: {{seconds}} s",
   "remaining_time": "{{seconds}}s remaining...",
   "calcul_estimation": "Calculating transcription time…"

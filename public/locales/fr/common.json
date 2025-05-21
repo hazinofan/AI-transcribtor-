@@ -22,8 +22,8 @@
   "next": "Suivant",
   "segment_counter": "Segment {{current}} sur {{total}}",
   "key_vocabulary": "Vocabulaire clé",
-  "keyboard_controls_hint": "Utilisez ← → pour naviguer entre les segments, Espace pour lecture/pause.",
-  "estimated_time": "Temps estimé : {{seconds}} s",
-  "remaining_time": "{{seconds}}s restantes...",
+  "keyboard_controls_hint": "Clavier: ← → pour naviguer entre les segments, Espace pour lecture/pause.",
+  "estimated_time": "Temps estimé : {{time}}",
+  "remaining_time": "{{time}} restantes...",
   "calcul_estimation": "Calcul du temps de transcription…"
 }
