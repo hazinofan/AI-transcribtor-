@@ -318,11 +318,75 @@
 
 .keyboardHint {
     text-align: center;
-    margin-top: 5px; /* Reduced from 20px */
-    margin-bottom: 10px; /* Added some bottom margin */
-    font-size: 0.9rem;
-    color: #555;
+    margin-top: 5px;
+    color: #888;
+    font-size: 0.9em;
 }
+
+/* Radix Slider Styles */
+.sliderContainer {
+    display: flex; /* Use flex to help center the slider if needed */
+    justify-content: center; /* Center slider within this container */
+    padding: 5px 0; /* Add some vertical padding */
+    /* The width of the slider will be controlled by SegmentSliderRoot to match segment display */
+}
+
+.SegmentSliderRoot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    width: 100%; /* Default to full width of its container */
+    max-width: var(--segment-container-width, 600px); /* Controlled by variable or fallback */
+    height: 20px; /* Height for interaction area */
+}
+
+.SegmentSliderTrack {
+    background-color: #e0e0e0; /* Light grey track */
+    position: relative;
+    flex-grow: 1;
+    border-radius: 9999px;
+    height: 6px; /* Height of the track */
+}
+
+.SegmentSliderRange {
+    position: absolute;
+    background-color: #f0c419; /* Yellow active part of the track */
+    border-radius: 9999px;
+    height: 100%;
+}
+
+.SegmentSliderThumb {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid #f0c419; /* Yellow border */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 50%; /* Circular thumb */
+    cursor: grab;
+}
+
+.SegmentSliderThumb:focus {
+    outline: none;
+    box-shadow: 0 0 0 5px rgba(240, 196, 25, 0.3); /* Focus ring with a bit of yellow */
+}
+
+.SegmentSliderThumb:active {
+    cursor: grabbing;
+}
+
+/* Remove old slider styles if they exist */
+/* 
+.segmentSlider,
+.segmentSlider::-webkit-slider-thumb,
+.segmentSlider::-moz-range-thumb,
+.segmentSlider::-webkit-slider-runnable-track,
+.segmentSlider::-moz-range-track {
+    all: unset; 
+}
+*/
 
 /* Responsive Design */
 @media (max-width: 768px) {

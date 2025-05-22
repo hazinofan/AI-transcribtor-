@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
+import * as Slider from '@radix-ui/react-slider';
 import styles from '../../styles/transcription.module.css';
 import animationData from '../../../public/assets/writing-feather-yellow.json';
 import dynamic from 'next/dynamic';
@@ -184,8 +185,6 @@ export default function TranscriptionPage() {
         };
     }, [videoId, lang, t]);
 
-
-
     // YouTube Player Ready Handler
     const onPlayerReady: YouTubeProps['onReady'] = (event) => {
         setPlayer(event.target);
@@ -217,6 +216,16 @@ export default function TranscriptionPage() {
             seekToSegment(newSegmentIndex);
         }
     }, [currentSegment, setCurrentSegment, seekToSegment]);
+
+    // Handler for slider change
+    const handleSliderChange = useCallback((value: number[]) => {
+        const newSegmentIndex = value[0];
+        if (!isNaN(newSegmentIndex) && newSegmentIndex >= 0 && newSegmentIndex < segments.length)
+        {
+            setCurrentSegment(newSegmentIndex);
+            seekToSegment(newSegmentIndex);
+        }
+    }, [segments, setCurrentSegment, seekToSegment]);
 
     // Effect for synchronizing segment with player time
     useEffect(() => {
@@ -432,6 +441,26 @@ export default function TranscriptionPage() {
             {error && <p className={styles.errorMessage}>{error}</p>}
             {!loading && !error && segments.length === 0 && videoId && (
                 <p className={styles.emptyMessage}>{t('no_segments')}</p>
+            )}
+
+            {/* Segment Slider */}
+            {!loading && segments.length > 1 && ( // Only show slider if there's more than one segment
+                <div className={styles.sliderContainer}>
+                    <Slider.Root
+                        className={styles.SegmentSliderRoot} // Updated class name for Radix
+                        value={[currentSegment]}
+                        onValueChange={handleSliderChange}
+                        min={0}
+                        max={segments.length - 1}
+                        step={1}
+                        aria-label={t('segment_slider_label') || "Segment Slider"}
+                    >
+                        <Slider.Track className={styles.SegmentSliderTrack}>
+                            <Slider.Range className={styles.SegmentSliderRange} />
+                        </Slider.Track>
+                        <Slider.Thumb className={styles.SegmentSliderThumb} />
+                    </Slider.Root>
+                </div>
             )}
 
             {/* Current Segment Display */}
