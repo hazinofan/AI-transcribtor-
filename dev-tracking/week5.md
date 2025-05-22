@@ -42,6 +42,13 @@
     - Updated `transcription/[videoId].tsx` to integrate the Radix Slider, including logic for value changes and synchronization with `currentSegment`.
     - Revised `transcription.module.css` to remove old slider styles and add new, improved styles for the Radix Slider components.
     - Adjusted slider styling to ensure its width aligns with the segment display area and the slider thumb is visually centered and matches the design aesthetic.
+- **Added Video Summary Display:**
+    - Implemented a new section below the transcription and vocabulary to display a video summary.
+    - Added state variables (`summaryText`, `summaryLoading`, `summaryError`) to `transcription/[videoId].tsx` to manage summary data and UI states.
+    - Updated `useEffect` to call the `summarizeVideoCall` API after transcription and key vocabulary are loaded.
+    - Included UI elements to handle loading, error, and empty states for the summary.
+    - Styled the summary section in `transcription.module.css` for visual consistency, ensuring newlines in the summary text are preserved (`white-space: pre-line`).
+    - Modified the `generateSummarizationPrompt` in `backend/functions/src/utils/prompt.ts` to explicitly request plain text output and discourage Markdown/HTML, aligning with frontend rendering capabilities.
 
 ## Known Issues / Observations
 - "Fast Refresh had to perform a full reload" messages may still appear in the console during development. These are often non-critical if the application functions correctly. 

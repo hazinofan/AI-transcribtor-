@@ -60,6 +60,20 @@ async function extractKeyVocabCall(videoId: string, language: string) {
     return data;
 }
 
+async function summarizeVideoCall(videoId: string, language: string) {
+    const res = await fetch(`${BASE_URL}/summarizeVideo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: { videoId, language: language } }),
+    });
+    if (!res.ok) throw new Error(`Summarize Video API returned ${res.status}`);
+    const data = await res.json();
+    if (data.error || data.result?.error) { // Check for backend errors
+        throw new Error(data.error?.message || data.result?.error || `Summarize Video failed`);
+    }
+    return data;
+}
+
 type Segment = {
     startTime: string;
     endTime: string;
@@ -111,6 +125,9 @@ export default function TranscriptionPage() {
     const [player, setPlayer] = useState<YouTubePlayer | null>(null);
     const animationFrameIdRef = useRef<number | null>(null);
     const [keyVocab, setKeyVocab] = useState<KeyVocab[][] | null>(null); // New state for key vocabulary
+    const [summaryText, setSummaryText] = useState<string | null>(null);
+    const [summaryLoading, setSummaryLoading] = useState<boolean>(false);
+    const [summaryError, setSummaryError] = useState<string | null>(null);
 
     // Fetch transcription data
     useEffect(() => {
@@ -126,6 +143,9 @@ export default function TranscriptionPage() {
             setSegments([]);
             setElapsed(0);
             setEstimatedTimeData(null);
+            setKeyVocab(null); // Reset key vocab
+            setSummaryText(null); // Reset summary
+            setSummaryError(null); // Reset summary error
 
             try {
                 // 1) get estimate
@@ -165,6 +185,26 @@ export default function TranscriptionPage() {
                     console.error('❌ Error extracting key vocabulary:', vocabErr);
                     // Optionally set an error state specifically for vocab extraction if needed
                 });
+
+                // 4) Fetch summary after transcription
+                if (transcriptSegments.length > 0) {
+                    setSummaryLoading(true);
+                    setSummaryError(null);
+                    summarizeVideoCall(videoId, lang).then(summaryData => {
+                        if (summaryData.result && typeof summaryData.result.data === 'string') {
+                            setSummaryText(summaryData.result.data);
+                            console.log(`✅ Summary data loaded for videoId: ${videoId}`);
+                        } else {
+                            console.warn('⚠️ Summarize video returned unexpected data:', summaryData);
+                            setSummaryError(t('error_summary_unexpected'));
+                        }
+                    }).catch(summaryErr => {
+                        console.error('❌ Error fetching summary:', summaryErr);
+                        setSummaryError(summaryErr.message || t('error_summary_fetch'));
+                    }).finally(() => {
+                        setSummaryLoading(false);
+                    });
+                }
 
             } catch (err: any) {
                 console.error(err);
@@ -524,6 +564,32 @@ export default function TranscriptionPage() {
             {/* Keyboard Controls Hint */}
             {!loading && segments.length > 0 && (
                 <div className={styles.keyboardHint}>{t('keyboard_controls_hint')}</div>
+            )}
+
+            {/* Summary Section */}
+            {!loading && !error && segments.length > 0 && (
+                <div className={styles.summarySectionContainer}>
+                    <h3 className={styles.summaryTitle}>{t('video_summary_title')}</h3>
+                    {summaryLoading && (
+                        <div className={styles.loadingContainerSmall}>
+                            <p>{t('loading_summary')}</p>
+                             {/* Optionally, add a smaller Lottie animation here if desired */}
+                        </div>
+                    )}
+                    {summaryError && (
+                        <p className={`${styles.errorMessage} ${styles.summaryErrorMessage}`}>
+                            {summaryError}
+                        </p>
+                    )}
+                    {!summaryLoading && !summaryError && summaryText && (
+                        <div className={styles.summaryContent}>
+                            <p style={{ whiteSpace: 'pre-line' }}>{summaryText}</p>
+                        </div>
+                    )}
+                    {!summaryLoading && !summaryError && !summaryText && (
+                         <p className={styles.emptyMessage}>{t('no_summary_available')}</p>
+                    )}
+                </div>
             )}
         </div>
     );

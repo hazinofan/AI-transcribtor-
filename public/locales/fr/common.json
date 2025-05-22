@@ -25,5 +25,8 @@
   "keyboard_controls_hint": "Clavier: ← → pour naviguer entre les segments, Espace pour lecture/pause.",
   "estimated_time": "Temps estimé : {{time}}",
   "remaining_time": "{{time}} restantes...",
-  "calcul_estimation": "Calcul du temps de transcription…"
+  "calcul_estimation": "Calcul du temps de transcription…",
+  "video_summary_title": "Résumé",
+  "loading_summary": "Chargement du résumé…",
+  "no_summary_available": "Aucun résumé disponible pour cette vidéo."
 }
