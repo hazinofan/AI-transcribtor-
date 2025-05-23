@@ -2,6 +2,37 @@
 
 ## Bug Fixes & Improvements
 
+### Frontend Architecture Refactoring (Major)
+- **Monolithic Component Breakdown:**
+    - Completely refactored the 609-line monolithic `transcription/[videoId].tsx` component into 8 focused, single-responsibility components
+    - Created dedicated components: `VideoPlayer.tsx`, `ProgressIndicator.tsx`, `SegmentNavigation.tsx`, `SegmentViewer.tsx`, `VocabularyBox.tsx`, `VideoSummary.tsx`, and `TranscriptionPage.tsx`
+    - Each component now handles a specific aspect of the transcription feature for improved maintainability and testability
+- **API Service Layer Implementation:**
+    - Created comprehensive `TranscriptionService` class in `services/api/transcriptionService.ts` to centralize all API calls
+    - Extracted and organized all API methods: `estimateTranscriptionTime()`, `transcriptAudio()`, `extractKeyVocab()`, and `summarizeVideo()`
+    - Implemented proper error handling, response typing, and singleton pattern for the service
+    - Eliminated API logic mixing with UI components for clean separation of concerns
+- **Custom Hooks Architecture:**
+    - Created `useTranscription.ts` hook to manage transcription state, API calls, and data flow logic
+    - Built `useVideoPlayer.ts` hook to handle YouTube player controls, segment navigation, and video synchronization
+    - Developed `useKeyboardControls.ts` hook to manage keyboard shortcuts (arrow keys, spacebar) separately from UI logic
+    - Each hook encapsulates specific functionality for better code organization and reusability
+- **Type Safety Enhancement:**
+    - Created comprehensive TypeScript interfaces in `types/transcription.ts` for all data structures
+    - Added interfaces: `Segment`, `KeyVocab`, `EstimateResponse`, `TranscriptResponse`, `VocabResponse`, `SummaryResponse`, `TranscriptionState`, and `VideoPlayerState`
+    - Eliminated inline type definitions and improved compile-time error checking
+    - Enhanced IDE support with full autocomplete and type validation
+- **Utility Functions Organization:**
+    - Extracted time formatting functions to `services/utils/timeUtils.ts`
+    - Created reusable `formatSecondsToMMSS()` and `timeToSeconds()` functions
+    - Removed duplicate inline utility code for better maintainability
+- **Component Layout & Styling Fixes:**
+    - Fixed segment navigation bar width alignment to match transcript section (1000px)
+    - Eliminated unwanted spacing between navigation bar and transcript content by removing `.mainContentArea` padding
+    - Integrated navigation bar inside segment container for seamless visual connection
+    - Ensured proper rounded corners with navigation bar getting top corners and content getting bottom corners
+    - Split `SegmentNavigation` into `SegmentSlider` and `SegmentNavigationBar` for better layout control
+
 ### Dark Mode Implementation
 - **Comprehensive Dark Mode System:**
     - Implemented a complete dark mode feature with modern toggle switch in the header

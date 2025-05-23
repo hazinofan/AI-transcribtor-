@@ -222,7 +222,7 @@
 
 .mainContentArea {
     position: relative;
-    padding: 10px 0;
+    padding: 0;
 }
 
 .segmentContent {
@@ -338,7 +338,7 @@
     user-select: none;
     touch-action: none;
     width: 100%;
-    max-width: var(--segment-container-width, 600px);
+    max-width: 1000px;
     height: 20px;
 }
 
