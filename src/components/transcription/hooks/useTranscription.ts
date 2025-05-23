@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
-import { TranscriptionState, Segment, KeyVocab } from '../../../types/transcription';
+import { TranscriptionState, Segment, KeyVocabulary } from '../../../types/transcription';
 import { transcriptionService } from '../../../services/api/transcriptionService';
 import { formatSecondsToMMSS } from '../../../services/utils/timeUtils';
 
@@ -18,9 +18,9 @@ export function useTranscription({ videoId, language }: UseTranscriptionProps)
     currentSegment: 0,
     loading: false,
     error: null,
-    estimatedTimeData: null,
+    estimationData: null,
     elapsed: 0,
-    keyVocab: null,
+    keyVocabulary: null,
     summaryText: null,
     summaryLoading: false,
     summaryError: null,
@@ -46,8 +46,8 @@ export function useTranscription({ videoId, language }: UseTranscriptionProps)
         error: null,
         segments: [],
         elapsed: 0,
-        estimatedTimeData: null,
-        keyVocab: null,
+        estimationData: null,
+        keyVocabulary: null,
         summaryText: null,
         summaryError: null,
       }));
@@ -56,7 +56,7 @@ export function useTranscription({ videoId, language }: UseTranscriptionProps)
       {
         // 1) Get estimate
         const estimateData = await transcriptionService.estimateTranscriptionTime(videoId);
-        setState(prev => ({ ...prev, estimatedTimeData: estimateData }));
+        setState(prev => ({ ...prev, estimationData: estimateData }));
 
         // Start progress timer if estimate is positive
         if (estimateData && estimateData.estimatedTranscriptTimeSec > 0) 
@@ -86,7 +86,7 @@ export function useTranscription({ videoId, language }: UseTranscriptionProps)
           {
             if (vocabData.result && Array.isArray(vocabData.result.data)) 
             {
-              setState(prev => ({ ...prev, keyVocab: vocabData.result.data as KeyVocab[][] }));
+              setState(prev => ({ ...prev, keyVocabulary: vocabData.result.data as KeyVocabulary[][] }));
               console.log(`✅ Key vocabulary data loaded for videoId: ${videoId}`);
             } 
             else 

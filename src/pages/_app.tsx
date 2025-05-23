@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 import '../styles/home.css'
 import { AppProps } from 'next/app'
-import Layout from '@/components/Layout'
+import Layout from '@/components/common/Layout'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import importedNextI18NextConfig from '../../next-i18next.config.js'
 import { UserConfig } from 'next-i18next';

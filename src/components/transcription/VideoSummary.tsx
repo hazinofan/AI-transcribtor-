@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/VideoSummary.module.css';
 
 interface VideoSummaryProps 
 {

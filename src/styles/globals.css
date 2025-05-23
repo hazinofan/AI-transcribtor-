@@ -1,135 +1,86 @@
+/* Import CSS Variables */
+@import './variables.css';
+
 /* Remove the body font-family declaration since we'll handle it via next/font */
 body {
   padding: 0;
   margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-:root {
-  /* Brand colors */
-  --color-primary: #cf6742;     
-  --color-secondary: #0077b6;   
-  --color-text: #3a7d44;  
-  --color-primary-hover: #a14d2f;  
-  --color-very-light-hover: #ffece5;
-  
-  /* Light mode colors */
-  --bg-primary: #F9FAF5;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f8f9fa;
-  --text-primary: #292929;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-  --border-color: #000000;
-  --border-light: #e5e7eb;
-  --color-hover-bg: rgba(0, 0, 0, 0.05);
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  
-  /* Component specific colors */
-  --segment-bg: #ffffff;
-  --segment-translation-bg: #fefefe;
-  --segment-arabic-bg: #f9f9f9;
-  --segment-border: #eee;
-  --segment-nav-bg: #00632e;
-  --segment-nav-text: #ffffff;
-  
-  /* Vocabulary colors */
-  --vocab-bg: #FFFDE7;
-  --vocab-border: #ECAE2E;
-  --vocab-title-color: #d89a1e;
-  --vocab-text-color: #2c3e50;
-  --vocab-translation-color: #434e4f;
-  --vocab-item-border: #d6eaf8;
-  
-  /* Slider colors */
-  --slider-track-bg: #e0e0e0;
-  --slider-range-bg: #f0c419;
-  --slider-thumb-bg: #ffffff;
-  --slider-thumb-border: #f0c419;
-  --slider-focus-ring: rgba(240, 196, 25, 0.3);
-  
-  /* Progress bar colors */
-  --progress-track-bg: #e0e0e0;
-  --progress-bar-bg: #00632E;
-  --progress-text-color: #2e2e2e;
-  --progress-time-color: #555;
-  
-  /* Button colors */
-  --button-nav-bg: #008000;
-  --button-nav-hover-bg: #1aa073;
-  --button-disabled-bg: #95a5a6;
-  
-  /* Message colors */
-  --error-color: #e74c3c;
-  --error-bg: #f2dede;
-  --error-border: #ebccd1;
-  --success-color: #27ae60;
-  --warning-color: #f39c12;
+/* Global reset and base styles */
+* {
+  box-sizing: border-box;
 }
 
-/* Dark mode colors */
-body.dark-mode {
-  /* Basic backgrounds and text */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --border-color: #334155;
-  --border-light: #334155;
-  --color-hover-bg: rgba(255, 255, 255, 0.05);
-  --card-bg: #1e293b;
-  --card-border: #334155;
-  --color-very-light-hover: rgba(207, 103, 66, 0.1);
-  
-  /* Component specific colors */
-  --segment-bg: #1e293b;
-  --segment-translation-bg: #1e293b;
-  --segment-arabic-bg: #0f172a;
-  --segment-border: #334155;
-  --segment-nav-bg: #065f46;
-  --segment-nav-text: #ecfdf5;
-  
-  /* Vocabulary colors */
-  --vocab-bg: #1e293b;
-  --vocab-border: #ECAE2E;
-  --vocab-title-color: #fbbf24;
-  --vocab-text-color: #f8fafc;
-  --vocab-translation-color: #cbd5e1;
-  --vocab-item-border: #334155;
-  
-  /* Slider colors */
-  --slider-track-bg: #334155;
-  --slider-range-bg: #fbbf24;
-  --slider-thumb-bg: #1e293b;
-  --slider-thumb-border: #fbbf24;
-  --slider-focus-ring: rgba(251, 191, 36, 0.3);
-  
-  /* Progress bar colors */
-  --progress-track-bg: #334155;
-  --progress-bar-bg: #10b981;
-  --progress-text-color: #f8fafc;
-  --progress-time-color: #94a3b8;
-  
-  /* Button colors */
-  --button-nav-bg: #10b981;
-  --button-nav-hover-bg: #059669;
-  --button-disabled-bg: #64748b;
-  
-  /* Message colors */
-  --error-color: #ef4444;
-  --error-bg: #1e293b;
-  --error-border: #334155;
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Apply theme variables to common elements */
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--button-primary-bg);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Button reset */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* List reset */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Image optimization */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Form elements */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Your other styles... */

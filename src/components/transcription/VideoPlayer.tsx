@@ -1,6 +1,6 @@
 import React from 'react';
 import YouTube, { YouTubeProps } from 'react-youtube';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/VideoPlayer.module.css';
 
 interface VideoPlayerProps 
 {

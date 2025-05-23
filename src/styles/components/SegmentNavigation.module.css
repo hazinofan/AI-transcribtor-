@@ -1,0 +1,135 @@
+/* Segment Navigation Styles */
+.segmentNavigation 
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--segment-nav-bg);
+  color: var(--segment-nav-text);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.navButton 
+{
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--button-primary-bg);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:hover:not(.disabledButton) 
+{
+  background-color: #a3b3c5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.disabledButton 
+{
+  background-color: var(--button-disabled-bg);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.segmentCounter 
+{
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.segmentInfoGroup 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.segmentTimestamp 
+{
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.keyboardHint 
+{
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Slider Styles */
+.sliderContainer 
+{
+  padding: 15px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.segmentSliderRoot 
+{
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  width: 100%;
+  height: 20px;
+}
+
+.segmentSliderTrack 
+{
+  background-color: var(--slider-track-bg);
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+  height: 3px;
+}
+
+.segmentSliderRange 
+{
+  position: absolute;
+  background-color: var(--slider-range-bg);
+  border-radius: 9999px;
+  height: 100%;
+}
+
+.segmentSliderThumb 
+{
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--slider-thumb-bg);
+  box-shadow: 0 2px 10px var(--slider-thumb-shadow);
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.segmentSliderThumb:hover 
+{
+  transform: scale(1.1);
+  box-shadow: 0 0 0 8px var(--slider-focus-ring);
+}
+
+.segmentSliderThumb:focus 
+{
+  outline: none;
+  box-shadow: 0 0 0 8px var(--slider-focus-ring);
+}
+
+.segmentSliderThumb:active 
+{
+  transform: scale(1.05);
+} 

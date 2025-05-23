@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
-import { EstimateResponse } from '../../types/transcription';
+import { EstimationResponse } from '../../types/transcription';
 import { formatSecondsToMMSS } from '../../services/utils/timeUtils';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/ProgressIndicator.module.css';
 import animationData from '../../../public/assets/writing-feather-yellow.json';
 
 // Dynamically import Lottie component with SSR disabled
@@ -12,11 +12,11 @@ const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 interface ProgressIndicatorProps 
 {
   loading: boolean;
-  estimatedTimeData: EstimateResponse | null;
+  estimationData: EstimationResponse | null;
   elapsed: number;
 }
 
-export function ProgressIndicator({ loading, estimatedTimeData, elapsed }: ProgressIndicatorProps) 
+export function ProgressIndicator({ loading, estimationData, elapsed }: ProgressIndicatorProps) 
 {
   const { t } = useTranslation('common');
 
@@ -34,7 +34,7 @@ export function ProgressIndicator({ loading, estimatedTimeData, elapsed }: Progr
 
   if (!loading) return null;
 
-  if (estimatedTimeData === null) 
+  if (estimationData === null) 
   {
     // 1️⃣ While waiting for the estimate:
     return (
@@ -46,7 +46,7 @@ export function ProgressIndicator({ loading, estimatedTimeData, elapsed }: Progr
     );
   }
 
-  if (estimatedTimeData.estimatedTranscriptTimeSec > 0) 
+  if (estimationData.estimatedTranscriptTimeSec > 0) 
   {
     // 2️⃣ Once we have a positive estimate, show progress:
     return (
@@ -62,25 +62,25 @@ export function ProgressIndicator({ loading, estimatedTimeData, elapsed }: Progr
             />
           </div>
           <p className={styles.estimatedTime}>
-            {t('estimated_time', { time: estimatedTimeData.estimatedTranscriptTimeFormatted })}
+            {t('estimated_time', { time: estimationData.estimatedTranscriptTimeFormatted })}
           </p>
           <div className={styles.progressDisplayContainer}>
             <div className={styles.progressWrapper}>
               <progress
                 className={styles.progressBar}
                 value={elapsed}
-                max={estimatedTimeData.estimatedTranscriptTimeSec}
+                max={estimationData.estimatedTranscriptTimeSec}
               />
               <div className={styles.progressTrack}></div>
             </div>
             <span className={styles.progressPercentage}>
-              {estimatedTimeData.estimatedTranscriptTimeSec > 0 ? Math.round((elapsed / estimatedTimeData.estimatedTranscriptTimeSec) * 100) : 0}%
+              {estimationData.estimatedTranscriptTimeSec > 0 ? Math.round((elapsed / estimationData.estimatedTranscriptTimeSec) * 100) : 0}%
             </span>
           </div>
           <div className={styles.timeLabels}>
-            {estimatedTimeData.estimatedTranscriptTimeSec > 0 && elapsed < estimatedTimeData.estimatedTranscriptTimeSec && (
+            {estimationData.estimatedTranscriptTimeSec > 0 && elapsed < estimationData.estimatedTranscriptTimeSec && (
               <span className={styles.remainingTimeText}>
-                {t('remaining_time', { time: formatSecondsToMMSS(estimatedTimeData.estimatedTranscriptTimeSec - elapsed) })}
+                {t('remaining_time', { time: formatSecondsToMMSS(estimationData.estimatedTranscriptTimeSec - elapsed) })}
               </span>
             )}
           </div>

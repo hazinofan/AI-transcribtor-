@@ -326,56 +326,57 @@
 
 /* Radix Slider Styles */
 .sliderContainer {
-    display: flex;
-    justify-content: center;
-    padding: 5px 0;
+    padding: 15px 20px;
+    background-color: var(--segment-nav-bg);
 }
 
-.SegmentSliderRoot {
+.segmentSliderRoot {
     position: relative;
     display: flex;
     align-items: center;
     user-select: none;
     touch-action: none;
     width: 100%;
-    max-width: 1000px;
     height: 20px;
 }
 
-.SegmentSliderTrack {
+.segmentSliderTrack {
     background-color: var(--slider-track-bg);
     position: relative;
     flex-grow: 1;
     border-radius: 9999px;
-    height: 6px;
+    height: 3px;
 }
 
-.SegmentSliderRange {
+.segmentSliderRange {
     position: absolute;
     background-color: var(--slider-range-bg);
     border-radius: 9999px;
     height: 100%;
 }
 
-.SegmentSliderThumb {
+.segmentSliderThumb {
     display: block;
     width: 20px;
     height: 20px;
     background-color: var(--slider-thumb-bg);
-    border: 2px solid var(--slider-thumb-border);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
-    cursor: grab;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 10px var(--slider-thumb-shadow);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.SegmentSliderThumb:focus {
+.segmentSliderThumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px var(--slider-focus-ring);
+}
+
+.segmentSliderThumb:focus {
     outline: none;
-    box-shadow: 0 0 0 5px var(--slider-focus-ring);
+    box-shadow: 0 0 0 8px var(--slider-focus-ring);
 }
 
-.SegmentSliderThumb:active {
-    cursor: grabbing;
+.segmentSliderThumb:active {
+    transform: scale(1.05);
 }
 
 /* Summary Section */

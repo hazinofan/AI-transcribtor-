@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'next-i18next';
 import * as Slider from '@radix-ui/react-slider';
 import { Segment } from '../../types/transcription';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/SegmentNavigation.module.css';
 
 interface SegmentSliderProps 
 {
@@ -26,7 +26,7 @@ export function SegmentSlider({
   return (
     <div className={styles.sliderContainer}>
       <Slider.Root
-        className={styles.SegmentSliderRoot}
+        className={styles.segmentSliderRoot}
         value={[currentSegment]}
         onValueChange={onSliderChange}
         min={0}
@@ -34,10 +34,10 @@ export function SegmentSlider({
         step={1}
         aria-label={t('segment_slider_label') || "Segment Slider"}
       >
-        <Slider.Track className={styles.SegmentSliderTrack}>
-          <Slider.Range className={styles.SegmentSliderRange} />
+        <Slider.Track className={styles.segmentSliderTrack}>
+          <Slider.Range className={styles.segmentSliderRange} />
         </Slider.Track>
-        <Slider.Thumb className={styles.SegmentSliderThumb} />
+        <Slider.Thumb className={styles.segmentSliderThumb} />
       </Slider.Root>
     </div>
   );
@@ -67,7 +67,7 @@ export function SegmentNavigationBar({
         disabled={currentSegment === 0}
         className={`${styles.navButton} ${currentSegment === 0 ? styles.disabledButton : ''}`}
       >
-        ← {t('previous')}
+        ← {/* {t('previous')} */}
       </button>
       <div className={styles.segmentInfoGroup}>
         <span className={styles.segmentCounter}>
@@ -82,7 +82,7 @@ export function SegmentNavigationBar({
         disabled={currentSegment === segments.length - 1}
         className={`${styles.navButton} ${currentSegment === segments.length - 1 ? styles.disabledButton : ''}`}
       >
-        {t('next')} →
+        {/* {t('next')} */} →
       </button>
     </div>
   );

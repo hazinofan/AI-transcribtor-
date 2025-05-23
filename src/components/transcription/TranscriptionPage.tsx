@@ -9,7 +9,7 @@ import { SegmentSlider, SegmentNavigationBar } from './SegmentNavigation';
 import { SegmentViewer } from './SegmentViewer';
 import { VocabularyBox } from './VocabularyBox';
 import { VideoSummary } from './VideoSummary';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/TranscriptionPage.module.css';
 
 interface TranscriptionPageProps 
 {
@@ -28,9 +28,9 @@ export function TranscriptionPage({ videoId, language, isReady }: TranscriptionP
     currentSegment,
     loading,
     error,
-    estimatedTimeData,
+    estimationData,
     elapsed,
-    keyVocab,
+    keyVocabulary,
     summaryText,
     summaryLoading,
     summaryError,
@@ -80,7 +80,7 @@ export function TranscriptionPage({ videoId, language, isReady }: TranscriptionP
       {/* Progress Indicator */}
       <ProgressIndicator 
         loading={loading}
-        estimatedTimeData={estimatedTimeData}
+        estimationData={estimationData}
         elapsed={elapsed}
       />
 
@@ -113,7 +113,7 @@ export function TranscriptionPage({ videoId, language, isReady }: TranscriptionP
             <SegmentViewer segment={segments[currentSegment]} />
           </div>
           <VocabularyBox 
-            keyVocab={keyVocab} 
+            keyVocabulary={keyVocabulary} 
             currentSegment={currentSegment} 
           />
         </div>

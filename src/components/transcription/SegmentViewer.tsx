@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment } from '../../types/transcription';
-import styles from '../../styles/transcription.module.css';
+import styles from '../../styles/components/SegmentViewer.module.css';
 
 interface SegmentViewerProps 
 {

@@ -1,0 +1,142 @@
+/* Progress Indicator Styles */
+.loadingContainer 
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.loadingContent 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.loadingText 
+{
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.lottieContainer 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-top: -50px;
+  margin-bottom: -40px;
+}
+
+.estimatedTime 
+{
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+}
+
+.progressDisplayContainer 
+{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.progressWrapper 
+{
+  flex-grow: 1;
+  height: 20px;
+  background-color: var(--progress-track-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressBar 
+{
+  width: 100%;
+  height: 100%;
+  background-color: var(--progress-track-bg);
+  border-radius: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.progressTrack 
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: #edf2f7;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* Progress Bar Browser-specific Styles */
+.progressBar::-webkit-progress-bar 
+{
+  background-color: var(--progress-track-bg);
+  border-radius: 10px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.progressBar::-webkit-progress-value 
+{
+  background-color: var(--progress-bar-bg);
+  border-radius: 10px;
+  transition: width 0.2s ease-out;
+  margin: 0;
+}
+
+.progressBar::-moz-progress-bar 
+{
+  background-color: var(--progress-bar-bg);
+  border-radius: 10px;
+  transition: width 0.2s ease-out;
+}
+
+.progressPercentage 
+{
+  margin-left: 10px;
+  font-size: 1em;
+  color: var(--progress-text-color);
+  font-weight: bold;
+}
+
+.timeLabels 
+{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.85em;
+  color: var(--progress-time-color);
+  margin-top: 5px;
+}
+
+.remainingTimeText 
+{
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.loadingContainerSmall 
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+} 

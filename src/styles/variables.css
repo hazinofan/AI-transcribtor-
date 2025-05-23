@@ -1,0 +1,145 @@
+/**
+ * CSS Custom Properties (Variables)
+ * 
+ * This file contains all CSS variables used throughout the application
+ * for consistent theming and easy maintenance.
+ */
+
+:root 
+{
+  /* Base Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #2e2e2e;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+
+  /* Border Colors */
+  --border-color: #000000;
+  --border-light: #e5e7eb;
+
+  /* Card Colors */
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+
+  /* Segment Colors */
+  --segment-bg: #ffffff;
+  --segment-nav-bg: #f5f5f5;
+  --segment-nav-text: #333333;
+  --segment-border: #e0e0e0;
+  --segment-translation-bg: #f8f9fa;
+  --segment-arabic-bg: #ffffff;
+
+  /* Translation & Arabic Specific */
+  --translation-bg: #f8f9fa;
+  --translation-border: #007bff;
+  --arabic-bg: #ffffff;
+  --arabic-border: #28a745;
+
+  /* Vocabulary Colors */
+  --vocabulary-bg: #ffffff;
+  --vocabulary-border: #e0e0e0;
+  --vocabulary-item-bg: #f8f9fa;
+  --vocabulary-item-border: #e0e0e0;
+
+  /* Summary Colors */
+  --summary-bg: #ffffff;
+  --summary-border: #e0e0e0;
+  --summary-title-border: #007bff;
+
+  /* Slider Colors */
+  --slider-track-bg: #e0e0e0;
+  --slider-range-bg: #007bff;
+  --slider-thumb-bg: #ffffff;
+  --slider-thumb-shadow: rgba(0, 0, 0, 0.2);
+  --slider-focus-ring: rgba(0, 123, 255, 0.3);
+
+  /* Progress Bar Colors */
+  --progress-track-bg: #e0e0e0;
+  --progress-bar-bg: #00632E;
+  --progress-text-color: #2e2e2e;
+  --progress-time-color: #555555;
+
+  /* Button Colors */
+  --button-primary-bg: #69727a;
+  --button-nav-bg: #008000;
+  --button-nav-hover-bg: #1aa073;
+  --button-disabled-bg: #95a5a6;
+
+  /* Message Colors */
+  --error-color: #e74c3c;
+  --error-bg: #f2dede;
+  --error-border: #ebccd1;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+}
+
+/* Dark Mode Variables */
+body.dark-mode 
+{
+  /* Base Colors */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Border Colors */
+  --border-color: #334155;
+  --border-light: #334155;
+
+  /* Card Colors */
+  --card-bg: #2d2d2d;
+  --card-border: #404040;
+
+  /* Segment Colors */
+  --segment-bg: #2d2d2d;
+  --segment-nav-bg: #374151;
+  --segment-nav-text: #f8fafc;
+  --segment-border: #404040;
+  --segment-translation-bg: #374151;
+  --segment-arabic-bg: #2d2d2d;
+
+  /* Translation & Arabic Specific */
+  --translation-bg: #374151;
+  --translation-border: #3b82f6;
+  --arabic-bg: #2d2d2d;
+  --arabic-border: #10b981;
+
+  /* Vocabulary Colors */
+  --vocabulary-bg: #2d2d2d;
+  --vocabulary-border: #404040;
+  --vocabulary-item-bg: #374151;
+  --vocabulary-item-border: #4b5563;
+
+  /* Summary Colors */
+  --summary-bg: #2d2d2d;
+  --summary-border: #404040;
+  --summary-title-border: #3b82f6;
+
+  /* Slider Colors */
+  --slider-track-bg: #4b5563;
+  --slider-range-bg: #3b82f6;
+  --slider-thumb-bg: #f8fafc;
+  --slider-thumb-shadow: rgba(0, 0, 0, 0.5);
+  --slider-focus-ring: rgba(59, 130, 246, 0.3);
+
+  /* Progress Bar Colors */
+  --progress-track-bg: #334155;
+  --progress-bar-bg: #10b981;
+  --progress-text-color: #f8fafc;
+  --progress-time-color: #94a3b8;
+
+  /* Button Colors */
+  --button-primary-bg: #69727a;
+  --button-nav-bg: #10b981;
+  --button-nav-hover-bg: #059669;
+  --button-disabled-bg: #64748b;
+
+  /* Message Colors */
+  --error-color: #ef4444;
+  --error-bg: #1e293b;
+  --error-border: #334155;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+} 

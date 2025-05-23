@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTheme } from '../contexts/ThemeContext';
-import styles from '../styles/DarkModeToggle.module.css';
+import { useTheme } from '../../contexts/ThemeContext';
+import styles from '../../styles/DarkModeToggle.module.css';
 
 const DarkModeToggle: React.FC = () => 
 {

@@ -1,0 +1,68 @@
+/* Segment Viewer Styles */
+.segmentContent 
+{
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}
+
+.translationSide, .arabicSide 
+{
+  flex: 1;
+  padding: 20px 25px;
+}
+
+.translationSide 
+{
+  border-bottom: 1px solid var(--segment-border);
+  background-color: var(--segment-translation-bg);
+}
+
+.arabicSide 
+{
+  background-color: var(--segment-arabic-bg);
+}
+
+.segmentTimestamp 
+{
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.translationText 
+{
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.arabicText 
+{
+  font-size: 3rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  font-weight: 600;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) 
+{
+  .segmentContent 
+  {
+    flex-direction: column;
+  }
+
+  .translationSide 
+  {
+    margin-bottom: 10px;
+  }
+
+  .arabicText 
+  {
+    font-size: 2rem;
+  }
+} 

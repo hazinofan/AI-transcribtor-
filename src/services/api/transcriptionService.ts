@@ -1,4 +1,4 @@
-import { EstimateResponse, TranscriptResponse, VocabResponse, SummaryResponse } from '../../types/transcription';
+import { EstimationResponse, TranscriptResponse, VocabularyResponse, SummaryResponse } from '../../types/transcription';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/ai-transcriptor-app-48cea/us-central1';
 
@@ -14,7 +14,7 @@ export class TranscriptionService
   /**
    * Estimate transcription time for a video
    */
-  async estimateTranscriptionTime(videoId: string): Promise<EstimateResponse> 
+  async estimateTranscriptionTime(videoId: string): Promise<EstimationResponse> 
   {
     const res = await fetch(`${this.baseUrl}/estimateTranscriptionTime`, 
     {
@@ -65,7 +65,7 @@ export class TranscriptionService
   /**
    * Extract key vocabulary from video
    */
-  async extractKeyVocab(videoId: string, language: string): Promise<VocabResponse> 
+  async extractKeyVocab(videoId: string, language: string): Promise<VocabularyResponse> 
   {
     const res = await fetch(`${this.baseUrl}/extractKeyVocab`, 
     {

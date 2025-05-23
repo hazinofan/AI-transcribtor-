@@ -1,0 +1,70 @@
+/* Vocabulary Box */
+.vocabularyBox 
+{
+  padding: 15px;
+  background-color: var(--vocabulary-bg);
+  border: 1px solid var(--vocabulary-border);
+  border-radius: 8px;
+  border-left: 4px solid var(--vocabulary-border);
+  max-height: 500px;
+  overflow-y: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 500px + 20px);
+  width: 300px;
+}
+
+.vocabularyTitle 
+{
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.vocabularyList 
+{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vocabularyItem 
+{
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--vocabulary-item-border);
+  display: flex;
+  justify-content: space-between;
+}
+
+.vocabularyItem:last-child 
+{
+  border-bottom: none;
+}
+
+.vocabularyArabic 
+{
+  font-weight: bold;
+  color: var(--text-primary);
+  text-align: right;
+  direction: rtl;
+  font-size: 2rem;
+}
+
+.vocabularyTranslation 
+{
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 1370px) 
+{
+  .vocabularyBox 
+  {
+    position: static;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0;
+  }
+} 
