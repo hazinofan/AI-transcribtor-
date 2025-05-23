@@ -17,6 +17,13 @@ body {
 }
 
 /* Layout */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -101,6 +108,8 @@ body {
     font-size: 0.875rem;
     color: var(--text-secondary);
     border-top: 2px solid var(--border-color);
+    place-items: center;
+    padding: 19px;
 }
 
 .footer-links {
@@ -110,36 +119,22 @@ body {
     flex-direction: row;
 }
 
-footer.footer {
-    place-items: center;
-    padding: 19px;
+.footer_rights {
+    font-size: 16px;
 }
 
-a.apropos {
+a.apropos,
+a.contact {
     color: var(--text-secondary);
     font-size: 17px;
     text-decoration: none;
     transition: .3s ease;
 }
 
-a.contact {
-    color: var(--text-secondary);
-    font-size: 17px;
-    text-decoration: none;
-}
-
-a.apropos:hover {
-    text-decoration: underline;
-    color: var(--text-primary);
-}
-
+a.apropos:hover,
 a.contact:hover {
     text-decoration: underline;
     color: var(--text-primary);
-}
-
-.footer_rights {
-    font-size: 16px;
 }
 
 .title {
@@ -148,32 +143,10 @@ a.contact:hover {
     font-weight: 300;
 }
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-}
-
-.main {
-    flex: 1;
-}
-
-span.sub-title {
+.sub-title {
+    padding-top: 27px;
     color: var(--text-secondary);
     font-weight: 300;
-}
-
-.hero_section {
-    text-align: center;
-    display: grid;
-    gap: 29px;
-}
-
-img.green-star {
-    position: absolute;
-    top: 373px;
-    right: 349px;
 }
 
 .hero_section {
@@ -184,6 +157,12 @@ img.green-star {
     display: grid;
     place-items: center;
     gap: 1.5rem;
+    text-align: center;
+}
+
+.hero_text {
+    display: grid;
+    gap: 29px;
 }
 
 .star {
@@ -197,7 +176,6 @@ img.green-star {
 .star--left {
     top: 2rem;
     left: 0.5rem;
-    /* transform: rotate(-15deg); */
 }
 
 .star--right {
@@ -206,87 +184,10 @@ img.green-star {
     transform: rotate(-8deg);
 }
 
-/* small‐screen tweak */
-@media (max-width: 600px) {
-    .star {
-        width: 32px;
-    }
-
-    .star--left {
-        top: 0.5rem;
-        left: 1rem;
-    }
-
-    .star--right {
-        top: 1rem;
-        right: 1rem;
-    }
-}
-
-p.sub-title {
-    padding-top: 27px;
-    color: var(--text-secondary);
-}
-
-.input‐card {
-    display: flex;
-    align-items: center;
-    background: #FFF7E3;
-    /* cream fill */
-    padding: 1rem;
-    /* 16px */
-    border: 2px solid #000;
-    /* black outline */
-    border-radius: 1rem;
-    /* 16px */
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
-    gap: 0.75rem;
-    /* 12px between items */
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* shared input style */
-.styled-input {
-    flex: 1;
-    /* grow to fill */
-    height: 3.5rem;
-    /* 56px */
-    padding: 0 1rem;
-    /* 16px horizontal */
-    background: #FFF;
-    /* white background */
-    border: 2px solid #000;
-    /* 8px */
-    box-shadow: 5px 7px black;
-    font-size: 1rem;
-    outline: none;
-}
-
-select.styled-input {
-    flex-grow: 0;
-    /* Prevent the select from growing to fill extra space */
-}
-
-/* button matches input's shadow + border */
-.styled-button {
-    height: 3.5rem;
-    padding: 0 1rem;
-    background: #F7B36A;
-    /* your orange */
-    border: 2px solid black; /* Simplified border for cleaner look with separate shadow */
-    box-shadow: none; /* Button itself has NO shadow */
-    font-size: 1rem;
-    cursor: pointer;
-    position: relative; /* Needed for z-index and positioning context */
-    z-index: 1; /* Button is above the shadow div */
-    transition: transform 0.2s ease-out;
-}
-
-/* optional: make sure inputs don't shrink below a usable size */
-.styled-input,
-.styled-button {
-    min-width: 8rem;
+.writing-hand {
+    top: 19.5rem;
+    right: 45.5rem;
+    transform: rotate(20deg);
 }
 
 .input_container {
@@ -300,39 +201,64 @@ select.styled-input {
     box-shadow: 5px 10px black;
 }
 
+.styled-input {
+    flex: 1;
+    height: 3.5rem;
+    padding: 0 1rem;
+    background: #FFF;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow: 5px 7px black;
+    font-size: 1rem;
+    outline: none;
+    min-width: 8rem;
+}
+
 input.styled-input {
     width: 464px;
 }
 
-.writing-hand {
-    top: 19.5rem;
-    right: 45.5rem;
-    transform: rotate(20deg);
+select.styled-input {
+    flex-grow: 0;
 }
 
 .btn-container {
-  display: inline-block;
-  position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .button-shadow {
-  position: absolute;
-  top: 5px; /* Adjust for desired shadow offset */
-  left: 5px; /* Adjust for desired shadow offset */
-  width: 100%;
-  height: 100%;
-  background-color: black; /* The solid shadow */
-  border-radius: 4px; /* Match button's border-radius */
-  z-index: 0; /* Shadow is behind the button */
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: 4px;
+    z-index: 0;
+}
+
+.styled-button {
+    height: 3.5rem;
+    padding: 0 1rem;
+    background: #F7B36A;
+    border: 2px solid black;
+    box-shadow: none;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease-out;
+    min-width: 8rem;
 }
 
 .btn-container:hover .styled-button {
-  transform: translate(-2px, -2px); /* Subtle movement */
-  background-color: #f8ad5c; /* Slightly darker orange on hover */
+    transform: translate(-2px, -2px);
+    background-color: #f8ad5c;
 }
 
 .styled-button:active {
-  transform: translate(0, 0);
+    transform: translate(0, 0);
 }
 
 /* Responsive header */
@@ -356,5 +282,22 @@ input.styled-input {
     .lang-switcher img {
         width: 24px;
         height: 18px;
+    }
+}
+
+/* Small screen adjustments */
+@media (max-width: 600px) {
+    .star {
+        width: 32px;
+    }
+
+    .star--left {
+        top: 0.5rem;
+        left: 1rem;
+    }
+
+    .star--right {
+        top: 1rem;
+        right: 1rem;
     }
 }
