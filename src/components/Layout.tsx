@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import DarkModeToggle from './DarkModeToggle'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation('common')
@@ -15,24 +16,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="wrapper">
       <header className="header">
-        <Link href="/" className="logo">
-          <img src="/assets/Qalamus.svg" alt="Qalamus" />
-        </Link>
-        <div className="lang-switcher">
-          <img
-            src="/assets/eng-flag.svg"
-            alt={t('lang_en')}
-            onClick={() => handleLocaleChange('en')}
-            className={locale === 'en' ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          />
-          <img
-            src="/assets/fr-flag.png"
-            alt={t('lang_fr')}
-            onClick={() => handleLocaleChange('fr')}
-            className={locale === 'fr' ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          />
+        <div className="header-container">
+          <Link href="/" className="logo">
+            <img src="/assets/Qalamus.svg" alt="Qalamus" />
+          </Link>
+          <div className="header-controls">
+            <div className="lang-switcher">
+              <img
+                src="/assets/eng-flag.svg"
+                alt={t('lang_en')}
+                onClick={() => handleLocaleChange('en')}
+                className={locale === 'en' ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              />
+              <img
+                src="/assets/fr-flag.png"
+                alt={t('lang_fr')}
+                onClick={() => handleLocaleChange('fr')}
+                className={locale === 'fr' ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+            <DarkModeToggle />
+          </div>
         </div>
       </header>
 

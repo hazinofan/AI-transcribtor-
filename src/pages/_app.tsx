@@ -6,6 +6,7 @@ import '../styles/transcription.css'
 import "plyr-react/plyr.css";
 import { AppProps } from 'next/app'
 import Layout from '@/components/Layout'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 import importedNextI18NextConfig from '../../next-i18next.config.js'
 import { UserConfig } from 'next-i18next';
 
@@ -17,13 +18,15 @@ const inter = Inter({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="wrapper">
-      <main className={inter.className}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </main>
-    </div>
+    <ThemeProvider>
+      <div className="wrapper">
+        <main className={inter.className}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
+      </div>
+    </ThemeProvider>
   )
 }
 

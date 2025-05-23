@@ -1,0 +1,131 @@
+.toggleButton 
+{
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleButton:hover 
+{
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .toggleButton:hover 
+{
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.toggleButton:focus 
+{
+  outline: 2px solid #cf684200;
+  outline-offset: 2px;
+}
+
+.toggleTrack 
+{
+  width: 52px;
+  height: 28px;
+  background-color: var(--toggle-bg);
+  border-radius: 14px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  border: 2px solid var(--toggle-border);
+}
+
+.toggleThumb 
+{
+  width: 24px;
+  height: 24px;
+  background-color: var(--toggle-thumb-bg);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.iconContainer 
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--toggle-icon-color);
+  transition: color 0.3s ease;
+}
+
+/* Light mode styles */
+.light .toggleTrack 
+{
+  --toggle-bg: #e2e8f0;
+  --toggle-border: #cbd5e1;
+  --toggle-thumb-bg: #ffffff;
+  --toggle-icon-color: #fbbf24;
+}
+
+.light .toggleThumb 
+{
+  left: 2px;
+}
+
+.light:hover .toggleTrack 
+{
+  --toggle-bg: #cbd5e1;
+}
+
+/* Dark mode styles */
+.dark .toggleTrack 
+{
+  --toggle-bg: #374151;
+  --toggle-border: #4b5563;
+  --toggle-thumb-bg: #1f2937;
+  --toggle-icon-color: #93c5fd;
+}
+
+.dark .toggleThumb 
+{
+  left: 26px;
+}
+
+.dark:hover .toggleTrack 
+{
+  --toggle-bg: #4b5563;
+}
+
+/* Animation for icon rotation */
+.iconContainer svg 
+{
+  transition: transform 0.3s ease;
+}
+
+.dark .iconContainer svg 
+{
+  transform: rotate(180deg);
+}
+
+/* Focus and active states */
+.toggleButton:active .toggleThumb 
+{
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) 
+{
+  .toggleTrack,
+  .toggleThumb,
+  .iconContainer,
+  .iconContainer svg 
+  {
+    transition: none;
+  }
+} 

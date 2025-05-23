@@ -2,6 +2,35 @@
 
 ## Bug Fixes & Improvements
 
+### Dark Mode Implementation
+- **Comprehensive Dark Mode System:**
+    - Implemented a complete dark mode feature with modern toggle switch in the header
+    - Created `ThemeContext.tsx` for React context-based theme management with localStorage persistence and system preference detection
+    - Built `DarkModeToggle.tsx` component with smooth animations, sun/moon icons, and accessibility support
+    - Added `DarkModeToggle.module.css` with modern iOS-style toggle switch design and hover effects
+- **Centralized Color Management:**
+    - Completely restructured color system in `globals.css` with 70+ CSS variables for comprehensive theme support
+    - Created color categories: brand colors, layout colors, segment colors, vocabulary colors, slider colors, progress bar colors, button colors, and message colors
+    - Implemented automatic color switching for both light and dark modes with smooth 0.3s transitions
+    - Created `DARK_MODE_COLORS.md` documentation file for easy color reference and management
+- **Component Dark Mode Integration:**
+    - Updated `transcription.module.css` to use centralized color variables instead of hardcoded colors
+    - Enhanced slider component with proper dark mode colors (dark track, bright thumb, yellow accents)
+    - Updated segment display boxes with appropriate dark backgrounds and contrast
+    - Modified vocabulary boxes to use dark theme with proper text contrast
+    - Updated progress bars with green theme in dark mode for better visibility
+    - Applied dark mode styling to all buttons, navigation elements, and text components
+- **Header Layout Improvements:**
+    - Fixed header layout structure with proper full-width container and centered content
+    - Added `header-controls` section to group language switcher and dark mode toggle
+    - Enhanced language switcher with standardized flag sizes (28x20px), hover effects, and improved active states
+    - Implemented responsive design for mobile devices with proper spacing and sizing
+- **Theme Integration:**
+    - Wrapped application with `ThemeProvider` in `_app.tsx` for global theme state management
+    - Updated `Layout.tsx` to include dark mode toggle in header alongside language switcher
+    - Applied CSS variables throughout `home.css` for consistent theming across all pages
+    - Ensured all color references use centralized variables for maintainability
+
 ### Internationalization (i18n) & Localization (l10n)
 - **Fixed `next-i18next` Configuration:**
     - Resolved `Invalid next.config.ts options detected: Invalid literal value, expected false at "i18n.localeDetection"`. Changed `i18n.localeDetection` to `false` in `next-i18next.config.js`.
