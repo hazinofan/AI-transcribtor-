@@ -14,8 +14,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 5px;    /* Reduced top space */
-    padding-bottom: 10px; /* Adjusted bottom space */
+    padding-top: 5px;
+    padding-bottom: 10px;
     font-size: 1.2rem;
     color: var(--text-secondary);
 }
@@ -23,30 +23,28 @@
 /* Video Player */
 .videoContainer {
     width: 100%;
-    max-width: 800px; /* Or your desired max-width */
+    max-width: 800px;
     aspect-ratio: 16/9;
-    margin: 0 auto 15px; /* Reduced bottom margin from 30px */
+    margin: 0 auto 15px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    background-color: #000; /* Optional: placeholder bg for the container */
+    background-color: #000;
 }
 
-/* This styles the div container created by react-youtube */
 .videoPlayer {
     width: 100%;
     height: 100%;
 }
 
-/* This styles the actual iframe element inside react-youtube's div */
 .videoPlayerIframe {
     width: 100%;
     height: 100%;
-    border: none; /* Important to remove default iframe border */
+    border: none;
 }
 
 /* Messages */
-.loadingMessage, .emptyMessage {
+.emptyMessage {
     text-align: center;
     font-size: 1.2rem;
     color: var(--text-secondary);
@@ -60,13 +58,13 @@
     margin: 20px 0;
 }
 
-/* Progress Bar Enhancements */
+/* Loading and Progress Components */
 .loadingContent {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 400px; /* Or your desired max width */
+    max-width: 400px;
 }
 
 .loadingText {
@@ -75,45 +73,63 @@
     color: var(--text-primary);
 }
 
+.lottieContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: -50px;
+    margin-bottom: -40px;
+}
+
 .estimatedTime {
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin-bottom: 15px;
 }
 
-.progressDisplayContainer { /* New style for the container of bar + percentage */
+.progressDisplayContainer {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 5px; /* Space before time labels below */
+    margin-bottom: 5px;
 }
 
 .progressWrapper {
-    /* position: relative; */ /* No longer needed for this element */
-    flex-grow: 1; /* Allow progress bar to take available space */
-    height: 20px; /* Example height, adjust as needed */
-    background-color: var(--progress-track-bg); /* Track color */
+    flex-grow: 1;
+    height: 20px;
+    background-color: var(--progress-track-bg);
     border-radius: 10px;
-    overflow: hidden; /* Ensures progress bar stays within bounds */
-    /* margin-bottom: 5px; */ /* Moved to progressDisplayContainer */
+    overflow: hidden;
 }
 
 .progressBar {
-    width: 100%; /* Take full width of wrapper initially */
+    width: 100%;
     height: 100%;
-    background-color: var(--progress-track-bg); /* Track color (for Firefox track mainly) */
+    background-color: var(--progress-track-bg);
     border-radius: 10px;
-    /* transition: width 0.2s ease-out; */ /* Removed: Transition handled by pseudo-elements */
-    appearance: none; /* Remove default browser styling */
+    appearance: none;
     -webkit-appearance: none;
 }
 
-/* For Webkit browsers (Chrome, Safari) */
+.progressTrack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #edf2f7;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* Progress Bar Browser-specific Styles */
 .progressBar::-webkit-progress-bar {
     background-color: var(--progress-track-bg);
     border-radius: 10px;
     margin: 0;
-    overflow: hidden; /* Add overflow hidden to help contain the value */
+    overflow: hidden;
 }
 
 .progressBar::-webkit-progress-value {
@@ -123,7 +139,6 @@
     margin: 0;
 }
 
-/* For Firefox */
 .progressBar::-moz-progress-bar {
     background-color: var(--progress-bar-bg);
     border-radius: 10px;
@@ -131,28 +146,22 @@
 }
 
 .progressPercentage {
-    /* position: absolute; */ /* Removed absolute positioning */
-    /* right: 10px; */
-    /* top: 50%; */
-    /* transform: translateY(-50%); */
-    margin-left: 10px; /* Space between bar and percentage */
-    font-size: 1em;  /* Adjusted from 0.8em based on screenshot */
-    color: var(--progress-text-color); /* Updated to use CSS variable */
+    margin-left: 10px;
+    font-size: 1em;
+    color: var(--progress-text-color);
     font-weight: bold;
-    /* line-height: 20px; */ /* Vertical alignment handled by flex container */
 }
 
 .timeLabels {
     display: flex;
-    justify-content: center; /* Center the remaining time text */
+    justify-content: center;
     width: 100%;
     font-size: 0.85em;
     color: var(--progress-time-color);
-    margin-top: 5px; /* Add some space above the time labels */
+    margin-top: 5px;
 }
 
 .remainingTimeText {
-    /* Style for the remaining time text, e.g., color, font-weight */
     color: var(--text-primary);
     font-style: italic;
 }
@@ -160,7 +169,7 @@
 /* Segment Container */
 .segmentContainer {
     max-width: 1000px;
-    margin: 0 auto; /* Ensures segmentContainer itself is centered */
+    margin: 0 auto;
     background-color: var(--segment-bg);
     border: 1px solid var(--card-border);
     border-radius: 15px;
@@ -205,38 +214,30 @@
     font-weight: 500;
 }
 
-/* New style for grouping segment counter and timestamp */
 .segmentInfoGroup {
     display: flex;
     align-items: flex-end;
-    gap: 20px; /* Adjust this value to control the space between counter and timestamp */
+    gap: 20px;
 }
 
-/* New container for segment and vocabulary - Changed to relative positioning context */
 .mainContentArea {
-    position: relative; /* For absolute positioning of vocabularyBox */
-    padding: 10px 0; /* Reduced top/bottom padding from 20px */
-    /* display: flex; */ /* Removed */
-    /* gap: 20px; */ /* Removed */
+    position: relative;
+    padding: 10px 0;
 }
 
-/* Segment Content */
 .segmentContent {
     display: flex;
-    flex-direction: column; /* Stack translation and arabic vertically */
-    /* min-height: 300px; */ /* Removed to allow content to define height */
-    flex: 3; /* Takes more space - relative to sibling .vocabularyBox if .mainContentArea was flex */
+    flex-direction: column;
+    flex: 3;
 }
 
 .translationSide, .arabicSide {
     flex: 1;
-    padding: 20px 25px; /* Reduced vertical padding, kept horizontal */
-    /* background-color: #f9f9f9; */ /* Base color can be on segmentContent if uniform */
+    padding: 20px 25px;
 }
 
 .translationSide {
-    /* border-right: 1px solid #eee; */ /* Removed */
-    border-bottom: 1px solid var(--segment-border); /* Updated */
+    border-bottom: 1px solid var(--segment-border);
     background-color: var(--segment-translation-bg);
 }
 
@@ -244,12 +245,11 @@
     background-color: var(--segment-arabic-bg);
 }
 
-.segmentTimestamp { /* Renamed from timeStamp and potentially adjusted */
+.segmentTimestamp {
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
-    color: var(--segment-nav-text); /* Updated to use variable */
-    margin: 0; /* Removed horizontal margins, spacing now handled by segmentInfoGroup gap */
-    /* Removed margin-bottom: 15px; as it's no longer needed here */
+    color: var(--segment-nav-text);
+    margin: 0;
 }
 
 .translationText {
@@ -259,32 +259,26 @@
 }
 
 .arabicText {
-    font-size: 1.5rem;
+    font-size: 3rem;
     line-height: 1.8;
     color: var(--text-primary);
     font-weight: 600;
-    font-size: 3rem;
 }
 
-/* Vocabulary Box - Updated for absolute positioning */
+/* Vocabulary Box */
 .vocabularyBox {
-    /* margin-top: 25px; */ /* Removed */
     padding: 15px;
     background-color: var(--vocab-bg);
     border: 1px solid var(--card-border);
     border-radius: 8px;
     border-left: 4px solid var(--vocab-border);
-    /* flex: 1; */ /* Removed */
-    /* margin-left: 20px; */ /* Removed */
-    /* align-self: flex-start; */ /* Removed */
-    max-height: 500px; /* Example: to make it scrollable if too long */
-    overflow-y: auto; /* Add scroll for overflow */
+    max-height: 500px;
+    overflow-y: auto;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-
     position: absolute;
-    top: 20px; /* Aligns with segmentContainer considering mainContentArea padding */
-    left: calc(50% + 500px + 20px); /* 50% (parent center) + half segment max-width + gap */
-    width: 300px; /* Fixed width for the vocabulary box */
+    top: 20px;
+    left: calc(50% + 500px + 20px);
+    width: 300px;
 }
 
 .vocabularyTitle {
@@ -332,10 +326,9 @@
 
 /* Radix Slider Styles */
 .sliderContainer {
-    display: flex; /* Use flex to help center the slider if needed */
-    justify-content: center; /* Center slider within this container */
-    padding: 5px 0; /* Add some vertical padding */
-    /* The width of the slider will be controlled by SegmentSliderRoot to match segment display */
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
 }
 
 .SegmentSliderRoot {
@@ -344,9 +337,9 @@
     align-items: center;
     user-select: none;
     touch-action: none;
-    width: 100%; /* Default to full width of its container */
-    max-width: var(--segment-container-width, 600px); /* Controlled by variable or fallback */
-    height: 20px; /* Height for interaction area */
+    width: 100%;
+    max-width: var(--segment-container-width, 600px);
+    height: 20px;
 }
 
 .SegmentSliderTrack {
@@ -354,7 +347,7 @@
     position: relative;
     flex-grow: 1;
     border-radius: 9999px;
-    height: 6px; /* Height of the track */
+    height: 6px;
 }
 
 .SegmentSliderRange {
@@ -371,7 +364,7 @@
     background-color: var(--slider-thumb-bg);
     border: 2px solid var(--slider-thumb-border);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 50%; /* Circular thumb */
+    border-radius: 50%;
     cursor: grab;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -385,34 +378,60 @@
     cursor: grabbing;
 }
 
-/* Remove old slider styles if they exist */
-/*
-.segmentSlider,
-.segmentSlider::-webkit-slider-thumb,
-.segmentSlider::-moz-range-thumb,
-.segmentSlider::-webkit-slider-runnable-track,
-.segmentSlider::-moz-range-track {
-    all: unset;
+/* Summary Section */
+.summarySectionContainer {
+    max-width: 1000px;
+    margin: 20px auto 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-*/
+
+.summaryTitle {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--segment-nav-bg);
+    padding-bottom: 10px;
+}
+
+.summaryContent p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    white-space: pre-line;
+    text-align: justify;
+    margin-bottom: 0;
+}
+
+.loadingContainerSmall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.summaryErrorMessage {
+    font-size: 1rem;
+    color: var(--error-color);
+    text-align: center;
+    padding: 10px;
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 4px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .segmentContent {
         flex-direction: column;
     }
-
-    /* .mainContentArea responsive rules removed as it's no longer flex */
-    /*
-    .mainContentArea {
-        flex-direction: column;
-    }
-    */
-
-    /* .vocabularyBox rules for 768px are now handled by the 1370px breakpoint,
-       unless specific overrides for very small screens are needed here.
-       The 1370px rule will make it stack and center.
-    */
 
     .translationSide {
         border-right: none;
@@ -428,67 +447,13 @@
     }
 }
 
-/* New Media Query for stacking vocabulary box */
 @media (max-width: 1370px) {
     .vocabularyBox {
         position: static;
-        width: auto; /* Allow it to take natural width up to max-width */
-        max-width: 1000px; /* Match segment container's max-width for consistency */
-        margin: 20px auto 0; /* Top margin, centered horizontally */
-        left: auto; /* Reset absolute positioning */
-        top: auto; /* Reset absolute positioning */
-        /* Optional: Adjust border for stacked layout */
-        /* border-left: none; */
-        /* border-top: 4px solid #3498db; */
+        width: auto;
+        max-width: 1000px;
+        margin: 20px auto 0;
+        left: auto;
+        top: auto;
     }
-}
-
-/* Add new styles for the summary section here */
-.summarySectionContainer {
-    max-width: 1000px;
-    margin: 20px auto 0; /* Add some top margin to separate from keyboard hint or vocab */
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 15px; /* Updated as per screenshot */
-    padding: 20px 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.summaryTitle {
-    font-size: 1.4rem; /* Slightly larger for a main title */
-    color: var(--text-primary);
-    margin-bottom: 15px;
-    text-align: center; /* Center the title */
-    border-bottom: 2px solid var(--segment-nav-bg); /* Accent line */
-    padding-bottom: 10px;
-}
-
-.summaryContent p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--text-primary);
-    white-space: pre-line; /* Preserve newlines and spaces */
-    text-align: justify; /* Justify text for a cleaner look */
-    margin-bottom: 0; /* Remove default p margin if not needed */
-}
-
-/* For a smaller loading message, if you use one for the summary */
-.loadingContainerSmall {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-    font-size: 1rem;
-    color: var(--text-secondary);
-}
-
-.summaryErrorMessage {
-    font-size: 1rem; /* Match content text size */
-    color: var(--error-color);
-    text-align: center;
-    padding: 10px;
-    background-color: var(--error-bg);
-    border: 1px solid var(--error-border);
-    border-radius: 4px;
 }
