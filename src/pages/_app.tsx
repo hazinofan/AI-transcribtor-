@@ -2,7 +2,6 @@ import { appWithTranslation } from 'next-i18next'
 import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 import '../styles/home.css'
-import "plyr-react/plyr.css";
 import { AppProps } from 'next/app'
 import Layout from '@/components/Layout'
 import { ThemeProvider } from '@/contexts/ThemeContext'
