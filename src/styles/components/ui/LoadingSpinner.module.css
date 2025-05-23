@@ -1,0 +1,56 @@
+/* Loading Spinner Component Styles */
+.container 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner 
+{
+  animation: spin 1s linear infinite;
+}
+
+.small 
+{
+  height: 16px;
+  width: 16px;
+}
+
+.medium 
+{
+  height: 32px;
+  width: 32px;
+}
+
+.large 
+{
+  height: 48px;
+  width: 48px;
+}
+
+.text 
+{
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Dark mode text color */
+body.dark-mode .text 
+{
+  color: #9ca3af;
+}
+
+@keyframes spin 
+{
+  from 
+  {
+    transform: rotate(0deg);
+  }
+  to 
+  {
+    transform: rotate(360deg);
+  }
+} 
