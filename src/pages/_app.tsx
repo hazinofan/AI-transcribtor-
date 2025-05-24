@@ -17,13 +17,11 @@ const inter = Inter({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
-      <div className="wrapper">
-        <main className={inter.className}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </main>
-      </div>
+      <main className={inter.className}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </main>
     </ThemeProvider>
   )
 }

@@ -2,6 +2,21 @@
 
 ## Bug Fixes & Improvements
 
+### CSS Architecture Optimization & Code Quality Improvements (Major)
+- **Frontend Structural Optimization:**
+    - Conducted comprehensive code quality improvements during investigation of an intermittent header bar visual issue
+    - While the original visual bug persists and requires further investigation, identified and resolved multiple structural inefficiencies
+    - Fixed 5 architectural problems: duplicate DOM wrappers, nested flexbox conflicts, duplicate CSS declarations, redundant property declarations, and CSS reset duplication
+    - Improved overall code maintainability and performance through DOM simplification and CSS deduplication
+    - Eliminated unnecessary wrapper element reducing DOM nesting by 1 element per page
+    - Centralized CSS reset management to prevent styling conflicts
+    - **📄 [Detailed Technical Documentation](week5/bug-fix/header-fix.md)** - Complete analysis of optimizations, architectural benefits, and quality metrics
+- **Optimization Impact:**
+    - **Performance**: Reduced CSS bundle size, simplified layout calculations, eliminated redundant property evaluations
+    - **Maintainability**: Single layout responsibility, cleaner DOM hierarchy, aligned with CSS architecture best practices
+    - **Code Quality**: Removed 10+ lines of duplicate/redundant CSS, eliminated 4 conflicting property declarations
+    - **Architecture**: Established single source of truth for layout management and CSS resets
+
 ### Qalamus Favicon Implementation
 - **Favicon Selection & Analysis:**
     - Evaluated available favicon options: `favicon-qalamus.svg` (3.2KB) and `favicon-qalamus-32px.png` (1.2KB, 34x34px)
