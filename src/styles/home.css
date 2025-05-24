@@ -143,6 +143,8 @@ a.contact:hover {
     padding-top: 27px;
     color: var(--text-secondary);
     font-weight: 300;
+    width: 90%;
+    place-self: center;
 }
 
 .hero_section {
@@ -163,27 +165,30 @@ a.contact:hover {
 
 .star {
     position: absolute;
-    width: 70px;
+    width: 80px;
     height: auto;
     pointer-events: none;
     user-select: none;
 }
 
 .star--left {
-    top: 2rem;
-    left: 0.5rem;
+    top: 1rem;
+    left: 1.5rem;
 }
 
 .star--right {
-    top: 10.5rem;
-    right: 0;
+    top: 12rem;
+    right: 2rem;
     transform: rotate(-8deg);
 }
 
 .writing-hand {
-    top: 19.5rem;
-    right: 45.5rem;
+    position: absolute;
+    top: 22rem;
+    left: 0rem;
     transform: rotate(20deg);
+    width: 70px;
+    z-index: 10;
 }
 
 .input_container {
@@ -191,10 +196,20 @@ a.contact:hover {
     background: #fff4da;
     border-radius: 18px;
     margin-top: 25px;
-    display: flex;
-    gap: 30px;
     border: 2px solid black;
     box-shadow: 5px 10px black;
+    width: 100%; /* Takes full width of .hero_section */
+
+    /* Default: Horizontal layout for wide screens */
+    display: flex;
+    flex-direction: row; /* Explicitly row for default */
+    align-items: center; /* Vertically center items in the bar */
+    gap: 30px;
+}
+
+.input_row_top {
+    display: flex; /* Keep it flex for its child input */
+    flex-grow: 1;  /* This row (containing the URL input) will take up available space */
 }
 
 .styled-input {
@@ -207,16 +222,30 @@ a.contact:hover {
     box-shadow: 5px 7px black;
     font-size: 1rem;
     outline: none;
-    min-width: 8rem;
-}
-
-input.styled-input {
-    width: 464px;
+    min-width: 8rem; /* Added min-width based on earlier comments */
 }
 
 select.styled-input {
     flex-grow: 0;
+    /* min-width still applies from .styled-input */
 }
+
+.styled-input.url-input { /* Target the URL input specifically */
+    width: 100%; /* Makes the URL input fill its parent .input_row_top */
+}
+
+.input_row_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px; /* Gap between select and button */
+    flex-shrink: 0; /* Prevent this row from shrinking too much on wide screens */
+}
+
+/* .styled-input.lang-select {
+    /* flex-grow: 0; is already set by select.styled-input */
+    /* min-width from .styled-input (8rem) still applies */
+/* } */
 
 .btn-container {
     display: inline-block;
@@ -283,17 +312,85 @@ select.styled-input {
 
 /* Small screen adjustments */
 @media (max-width: 600px) {
-    .star {
-        width: 32px;
+    /*.star {
+        width: 0px;
+    }*/
+
+    .title {
+        font-size: 36px; /* Adjust as needed */
     }
 
+    .sub-title {
+        font-size: 14px; /* Adjust as needed */
+        padding-top: 10px; /* Reduce padding */
+    }
+
+    .hero_text {
+        gap: 10px; /* Reduce gap */
+    }
+}
+
+/* --- Responsive Vertical Layout --- */
+/* Apply when the viewport is narrower than (e.g.) 600px.
+   Choose a breakpoint where the horizontal layout starts to look too cramped.
+   This could be around the sum of min-widths of your elements + gaps.
+   8rem (input) + 8rem (select) + button_width + 2*gap = approx 16rem + 8rem + 60px ~ 384px + 60px = 444px.
+   So a breakpoint like 500px or 550px might be more appropriate if 600px feels too early.
+   Let's try 550px.
+*/
+@media (max-width: 720px) {
+    .input_container {
+        flex-direction: column; /* Stack rows vertically */
+        align-items: stretch;   /* Make rows take full width */
+        gap: 15px;              /* Reduce gap between rows */
+    }
+
+    .input_row_top {
+        flex-grow: 0; /* No longer needs to grow in a column layout */
+        width: 100%;
+    }
+
+    .title {
+        font-size: 45px; /* Adjust as needed */
+    }
     .star--left {
         top: 0.5rem;
-        left: 1rem;
+        left: 0rem;
+        width: 80px;
     }
 
     .star--right {
         top: 1rem;
-        right: 1rem;
+        right: 0rem;
+        width: 75px;
+    }
+
+    .input_row_bottom {
+        width: 100%;
+        gap: 15px; /* Gap between select and button */
+        /* Decide how select and button share space in this row */
+        /* Option 1: Justify them (e.g., space-between if you want them at ends) */
+        /* justify-content: space-between; */
+
+        /* Option 2: Let select take priority and button take remaining or natural width */
+        /* (This is often fine if select has min-width and button has natural width) */
+    }
+
+    /*.styled-input.lang-select {
+        /* If you want the select to take more space on small screens: */
+        /* flex-grow: 1; */
+        /* If it gets too wide, ensure it doesn't exceed a certain max-width or rely on its content */
+    /*}*/
+
+    /*.btn-container {
+        /* If you want the button to take more space: */
+        /* flex-grow: 1; */
+        /* display: flex; /* if its child button needs to fill it */
+   /* }*/
+    /* If button should be full width in its own "slot" in btn-container */
+    /* .btn-container .styled-button { width: 100%; } */
+
+    .writing-hand {
+        display: none;
     }
 }

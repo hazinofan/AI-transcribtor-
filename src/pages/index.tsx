@@ -29,7 +29,7 @@ const Index = () => {
       <img src="/assets/red-star.svg" alt="" className="star star--left" />
       <div className="hero_text">
         <h1 className="title">{t('title')} <br /> {t('title2')} </h1>
-        <p className="sub-title">{t('subtitle1')} <br /> {t('subtitle2')} <br /> {t('subtitle3')} </p>
+        <p className="sub-title">{t('subtitle')}</p>
       </div>
       <img src="/assets/green-star.svg" alt="" className="star star--right" />
       <img
@@ -39,29 +39,31 @@ const Index = () => {
       />
 
       <div className="input_container">
-        <input
-          type="text"
-          value={videoUrl}
-          onChange={(e) => setVideoUrl(e.target.value)}
-          placeholder={t('placeholder_url')}
-          className="styled-input"
-        />
-
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          className="styled-input"
-        >
-          <option value="fr">{t('lang_fr')}</option>
-          <option value="en">{t('lang_en')}</option>
-        </select>
-
-        <div className="btn-container">
-          <div className="button-shadow"></div>
-          <button className="styled-button" onClick={handleSubmit}>
-            {t('button_go')}
-          </button>
-        </div>
+          <div className="input_row_top">
+              <input
+                  type="text"
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  placeholder={t('placeholder_url')}
+                  className="styled-input url-input"
+              />
+          </div>
+          <div className="input_row_bottom">
+              <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="styled-input lang-select"
+              >
+                  <option value="fr">{t('lang_fr')}</option>
+                  <option value="en">{t('lang_en')}</option>
+              </select>
+              <div className="btn-container">
+                  <div className="button-shadow"></div>
+                  <button className="styled-button" onClick={handleSubmit}>
+                      {t('button_go')}
+                  </button>
+              </div>
+          </div>
       </div>
     </div>
   )

@@ -17,6 +17,23 @@
     - **Code Quality**: Removed 10+ lines of duplicate/redundant CSS, eliminated 4 conflicting property declarations
     - **Architecture**: Established single source of truth for layout management and CSS resets
 
+### Homepage UI & Responsiveness Enhancements
+- **Input Bar Layout Refinement (Responsive):**
+    - Implemented a responsive input bar that switches from a horizontal layout on wider screens to a vertical, stacked layout on screens narrower than 680px (initially 550px, then adjusted).
+    - HTML structure in `index.tsx` was updated to use `input_row_top` and `input_row_bottom` divs to facilitate this flexbox-based switch.
+    - Added specific classes (`url-input`, `lang-select`) for more targeted styling.
+    - CSS in `home.css` was updated with new flexbox rules for `.input_container`, `.input_row_top`, and `.input_row_bottom` to manage the layout change via a media query (`@media (max-width: 680px)`).
+    - Restored base styles for `.styled-input` and `select.styled-input` that were inadvertently removed during an earlier edit, ensuring consistent input field appearance.
+- **Conditional Hiding of Decorative Element:**
+    - The `.writing-hand` decorative image is now hidden (`display: none;`) on screens narrower than 680px to prevent layout clutter when the input bar stacks vertically.
+- **Improved Subtitle Readability on Small Screens:**
+    - Adjusted font sizes for `.title` and `.sub-title` within the `@media (max-width: 600px)` query in `home.css` to prevent text overflow and improve readability on mobile devices.
+    - Reduced `padding-top` for `.sub-title` and `gap` for `.hero_text` at the same breakpoint.
+- **Subtitle Internationalization Refactoring:**
+    - Consolidated `subtitle1`, `subtitle2`, and `subtitle3` translation keys into a single `subtitle` key in `public/locales/en/common.json`.
+    - Updated `frontend/src/pages/index.tsx` to use the single `t('subtitle')` call, removing forced `<br />` tags.
+    - This change improves translation context, allows for more natural text flow, and simplifies maintenance. (Note: Similar changes are pending for `fr` and `de` locale files).
+
 ### Qalamus Favicon Implementation
 - **Favicon Selection & Analysis:**
     - Evaluated available favicon options: `favicon-qalamus.svg` (3.2KB) and `favicon-qalamus-32px.png` (1.2KB, 34x34px)
