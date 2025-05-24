@@ -2,6 +2,7 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { useState } from 'react'
+import HomeLanguageSelector from '../components/common/HomeLanguageSelector'
 
 const Index = () => {
   const { t } = useTranslation('common')
@@ -49,14 +50,10 @@ const Index = () => {
               />
           </div>
           <div className="input_row_bottom">
-              <select
+              <HomeLanguageSelector
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  className="styled-input lang-select"
-              >
-                  <option value="fr">{t('lang_fr')}</option>
-                  <option value="en">{t('lang_en')}</option>
-              </select>
+                  onChange={setLanguage}
+              />
               <div className="btn-container">
                   <div className="button-shadow"></div>
                   <button className="styled-button" onClick={handleSubmit}>

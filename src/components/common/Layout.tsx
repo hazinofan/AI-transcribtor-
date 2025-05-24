@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import DarkModeToggle from './DarkModeToggle'
+import LanguageSelector from './LanguageSelector'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation('common')
@@ -21,22 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <img src="/assets/Qalamus.svg" alt="Qalamus" />
           </Link>
           <div className="header-controls">
-            <div className="lang-switcher">
-              <img
-                src="/assets/eng-flag.svg"
-                alt={t('lang_en')}
-                onClick={() => handleLocaleChange('en')}
-                className={locale === 'en' ? 'active' : ''}
-                style={{ cursor: 'pointer' }}
-              />
-              <img
-                src="/assets/fr-flag.png"
-                alt={t('lang_fr')}
-                onClick={() => handleLocaleChange('fr')}
-                className={locale === 'fr' ? 'active' : ''}
-                style={{ cursor: 'pointer' }}
-              />
-            </div>
+            <LanguageSelector />
             <DarkModeToggle />
           </div>
         </div>
@@ -54,7 +40,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
         <div className="footer_rights">
-          {t('footer_rights', { year: '2025', app: 'Qalamus' })}
+          {t('footer_rights', { year: new Date().getFullYear(), app: 'Qalamus' })}
         </div>
       </footer>
     </div>

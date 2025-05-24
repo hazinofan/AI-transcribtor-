@@ -1,7 +1,7 @@
 /**
  * Supported languages for the application
  */
-export type SupportedLanguage = 'en' | 'ar' | 'fr' | 'es' | 'de';
+export type SupportedLanguage = 'en' | 'ar' | 'fr' | 'es' | 'it' | 'de' | 'nl';
 
 /**
  * Theme modes available in the application
