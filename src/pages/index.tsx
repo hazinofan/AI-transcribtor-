@@ -1,13 +1,28 @@
 // pages/index.tsx
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import HomeLanguageSelector from '../components/common/HomeLanguageSelector'
 
 const Index = () => {
   const { t } = useTranslation('common')
+  const router = useRouter()
+  const { locale } = router
   const [videoUrl, setVideoUrl] = useState('')
-  const [language, setLanguage] = useState('fr')
+  const [language, setLanguage] = useState(locale || 'fr')
+
+  // Sync local language state with router locale when header language changes
+  useEffect(() => {
+    if (locale) {
+      setLanguage(locale)
+    }
+  }, [locale])
+
+  const handleLanguageChange = (newLanguage: string) => {
+    // Only update local state for transcription language selection
+    setLanguage(newLanguage)
+  }
 
   const handleSubmit = () => {
     if (!videoUrl) return alert(t('alert_paste_url'))
@@ -52,7 +67,7 @@ const Index = () => {
           <div className="input_row_bottom">
               <HomeLanguageSelector
                   value={language}
-                  onChange={setLanguage}
+                  onChange={handleLanguageChange}
               />
               <div className="btn-container">
                   <div className="button-shadow"></div>

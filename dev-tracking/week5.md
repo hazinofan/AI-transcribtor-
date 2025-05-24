@@ -39,6 +39,7 @@
     - **Accessibility**: Full keyboard navigation, screen reader support, and focus management
     - **Mobile Optimization**: Responsive design that works seamlessly on all screen sizes
     - **Animation & Feedback**: Smooth fade-in animations, hover effects, and visual feedback for all interactions
+    - **Unidirectional Language Sync**: Implemented smart language synchronization where header language changes automatically update the homepage transcription language selector, while homepage selector changes only affect transcription language (not website language). This provides intuitive UX where the transcription language defaults to match browsing language but can be independently customized when needed.
 - **Technical Architecture:**
     - Consistent component architecture with proper TypeScript interfaces and error handling
     - Reusable language data structure with flag paths and labels for maintainability
