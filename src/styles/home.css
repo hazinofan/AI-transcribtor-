@@ -193,11 +193,11 @@ a.contact:hover {
 
 .input_container {
     padding: 21px;
-    background: #fff4da;
+    background: var(--input-container-bg);
     border-radius: 18px;
     margin-top: 25px;
-    border: 2px solid black;
-    box-shadow: 5px 10px black;
+    border: 2px solid var(--input-container-border);
+    box-shadow: var(--input-container-shadow);
     width: 100%; /* Takes full width of .hero_section */
 
     /* Default: Horizontal layout for wide screens */
@@ -216,13 +216,18 @@ a.contact:hover {
     flex: 1;
     height: 3.5rem;
     padding: 0 1rem;
-    background: #FFF;
-    border: 2px solid #000;
+    background: var(--input-bg);
+    border: 2px solid var(--input-border);
     border-radius: 8px;
-    box-shadow: 5px 7px black;
+    box-shadow: var(--input-shadow);
     font-size: 1rem;
     outline: none;
     min-width: 8rem; /* Added min-width based on earlier comments */
+    color: var(--input-text);
+}
+
+.styled-input::placeholder {
+    color: var(--input-placeholder);
 }
 
 select.styled-input {
@@ -258,16 +263,16 @@ select.styled-input {
     left: 5px;
     width: 100%;
     height: 100%;
-    background-color: black;
-    border-radius: 4px;
+    background-color: var(--button-shadow);
+    border-radius: 8px;
     z-index: 0;
 }
 
 .styled-button {
     height: 3.5rem;
     padding: 0 1rem;
-    background: #F7B36A;
-    border: 2px solid black;
+    background: var(--button-cta-bg);
+    border: 2px solid var(--input-border);
     box-shadow: none;
     font-size: 1rem;
     cursor: pointer;
@@ -275,11 +280,13 @@ select.styled-input {
     z-index: 1;
     transition: transform 0.2s ease-out;
     min-width: 8rem;
+    color: var(--button-cta-text);
+    border-radius: 8px;
 }
 
 .btn-container:hover .styled-button {
     transform: translate(-2px, -2px);
-    background-color: #f8ad5c;
+    background-color: var(--button-cta-hover-bg);
 }
 
 .styled-button:active {

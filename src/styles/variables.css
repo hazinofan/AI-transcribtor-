@@ -18,6 +18,21 @@
   --border-color: #000000;
   --border-light: #e5e7eb;
 
+  /* Input Colors */
+  --input-bg: #ffffff;
+  --input-border: #000000;
+  --input-text: #2e2e2e;
+  --input-placeholder: #999999;
+  --input-shadow: 5px 7px #000000;
+  --input-container-bg: #fff4da;
+  --input-container-border: #000000;
+  --input-container-shadow: 5px 10px #000000;
+
+  /* Accent Colors */
+  --accent-yellow: #F7B36A;
+  --accent-star: #F39C12;
+  --accent-pen: #F7B36A;
+
   /* Card Colors */
   --card-bg: #ffffff;
   --card-border: #e0e0e0;
@@ -65,6 +80,15 @@
   --button-nav-bg: #008000;
   --button-nav-hover-bg: #1aa073;
   --button-disabled-bg: #95a5a6;
+  --button-cta-bg: #F7B36A;        /* Original bright peach-orange for light mode */
+  --button-cta-hover-bg: #f8ad5c;  /* Original hover for light mode */
+  --button-cta-text: #2e2e2e;
+  --button-shadow: #000000;
+
+  /* Alternative harmonious options:
+     Soft yellow-gold: #d4a017 with hover: #b8941a
+     Muted green: #3fb68b with hover: #339f7a
+     Muted blue: #3a86ff with hover: #2970e6 */
 
   /* Message Colors */
   --error-color: #e74c3c;
@@ -87,6 +111,21 @@ body.dark-mode
   /* Border Colors */
   --border-color: #334155;
   --border-light: #334155;
+
+  /* Input Colors */
+  --input-bg: #1e1e1e;
+  --input-border: #444444;
+  --input-text: #eeeeee;
+  --input-placeholder: #999999;
+  --input-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  --input-container-bg: #2c2c2c;
+  --input-container-border: #444444;
+  --input-container-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+  /* Accent Colors - Muted for dark theme */
+  --accent-yellow: #D4A574;
+  --accent-star: #D4A574;
+  --accent-pen: #90C695;
 
   /* Card Colors */
   --card-bg: #2d2d2d;
@@ -135,6 +174,10 @@ body.dark-mode
   --button-nav-bg: #10b981;
   --button-nav-hover-bg: #059669;
   --button-disabled-bg: #64748b;
+  --button-cta-bg: #3fb68b;
+  --button-cta-hover-bg: #339f7a;
+  --button-cta-text: #212121;
+  --button-shadow: #000000;
 
   /* Message Colors */
   --error-color: #ef4444;
