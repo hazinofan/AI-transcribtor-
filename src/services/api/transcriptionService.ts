@@ -97,7 +97,7 @@ export class TranscriptionService
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: { videoId, language: language } }),
+      body: JSON.stringify({ data: { videoId, targetLanguage: language } }),
     });
     
     if (!res.ok) 
