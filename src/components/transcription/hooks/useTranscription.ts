@@ -162,7 +162,7 @@ export function useTranscription({ videoId, language }: UseTranscriptionProps)
     {
       if (timerId) clearInterval(timerId);
     };
-  }, [videoId, language, t]);
+  }, [videoId, language]);
 
   const setCurrentSegment = (segmentIndex: number) => 
   {
